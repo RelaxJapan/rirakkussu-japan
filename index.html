@@ -1,0 +1,3460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rirakkusu Japan — Reclaim Your Peace & Your Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Colors */
+  --color-cream: #faf8f3;
+  --color-cream-mid: #f5f2eb;
+  --color-cream-dark: #e8e5df;
+  --color-gold: #c9a84c;
+  --color-gold-light: rgba(201,168,76,0.12);
+  --color-gold-border: rgba(201,168,76,0.25);
+  --color-gold-border2: rgba(201,168,76,0.35);
+  --color-ink: #1c1c1c;
+  --color-ink-mid: #333333;
+  --color-ink-light: #555555;
+  --color-muted: #666666;
+  --color-muted-light: #888888;
+  --color-border: rgba(0,0,0,0.08);
+  --color-border-light: rgba(0,0,0,0.06);
+  --color-dark-bg: #0f0f0f;
+  --color-dark-card: #161616;
+  --color-dark-border: rgba(255,255,255,0.08);
+  --color-white: #ffffff;
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Noto Sans JP', sans-serif;
+
+  /* Font sizes */
+  --fs-label: 10px;
+  --fs-body-sm: 13px;
+  --fs-body: 15px;
+  --fs-body-lg: 16px;
+  --fs-h3: 22px;
+  --fs-h2-sm: 36px;
+  --fs-h2: 56px;
+  --fs-h1: 80px;
+  --fs-stat: 36px;
+
+  /* Spacing */
+  --sp-xs: 8px;
+  --sp-sm: 16px;
+  --sp-md: 24px;
+  --sp-lg: 40px;
+  --sp-xl: 64px;
+  --sp-2xl: 110px;
+
+  /* Container */
+  --container-max: 1100px;
+  --container-pad: 170px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-ink);
+  background: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.gold-bar {
+  width: 29px;
+  height: 1px;
+  background: var(--color-gold);
+  display: block;
+  margin: 14px 0;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 72px;
+  background: rgba(0,0,0,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+}
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navbar__logo-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar__logo-icon svg {
+  width: 40px;
+  height: 40px;
+}
+.navbar__logo-text {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.navbar__logo-img {
+  height: 52px;
+  width: auto;
+  display: block;
+}
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+.navbar__nav-link {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  transition: color 0.2s;
+}
+.navbar__nav-link:hover {
+  color: var(--color-gold);
+}
+.navbar__cta {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 10px 22px;
+  transition: background 0.2s, color 0.2s;
+}
+.navbar__cta:hover {
+  background: rgba(255,255,255,0.15);
+  color: var(--color-white);
+}
+.lang-switch { display: flex; align-items: center; gap: 7px; margin-left: 20px; }
+.lang-btn { font-family: var(--font-sans); font-size: 12px; letter-spacing: 1px; color: rgba(255,255,255,0.75); background: none; border: none; cursor: pointer; padding: 4px 2px; transition: color .2s; }
+.lang-btn:hover { color: #fff; }
+.lang-btn.active { color: var(--color-gold); font-weight: 600; }
+.lang-sep { color: rgba(255,255,255,0.4); font-size: 12px; }
+@media (max-width: 1024px){ .lang-switch{ margin-left: auto; margin-right: 14px; } }
+/* Hamburger */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.navbar__hamburger-bar {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--color-white);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.navbar__hamburger[aria-expanded="true"] .navbar__hamburger-bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.navbar__hamburger[aria-expanded="true"] .navbar__hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+.navbar__hamburger[aria-expanded="true"] .navbar__hamburger-bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+.navbar__mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  padding: 24px 80px 32px;
+  gap: 20px;
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.navbar__mobile-menu.is-open {
+  max-height: 400px;
+  padding: 24px 80px 32px;
+}
+.navbar__mobile-menu .navbar__nav-link {
+  display: block;
+  font-size: 14px;
+  color: var(--color-ink-mid);
+}
+.navbar__mobile-menu .navbar__cta {
+  align-self: flex-start;
+  margin-top: 8px;
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 724px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('images/image.png');
+  background-size: cover;
+  background-position: center;
+}
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15,15,15,0.55) 0%,
+    rgba(15,15,15,0.35) 40%,
+    rgba(15,15,15,0.55) 100%
+  );
+}
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 700px;
+  padding: 0 24px;
+}
+.hero__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 22px;
+}
+.hero__title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 78px;
+  line-height: 1.08;
+  color: var(--color-white);
+  margin-bottom: 0;
+}
+.hero__title em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.hero__subtitle {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.9);
+  margin-top: 28px;
+  line-height: 1.7;
+}
+.hero__body {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+  margin-top: 16px;
+  line-height: 1.8;
+}
+.hero__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.btn--gold {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  background: var(--color-gold);
+  padding: 16px 28px;
+  border: 1px solid var(--color-gold);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn--gold:hover {
+  background: #b8963e;
+  border-color: #b8963e;
+}
+.btn--outline-white {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: transparent;
+  padding: 16px 28px;
+  border: 1px solid rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn--outline-white:hover {
+  background: rgba(255,255,255,0.1);
+}
+.hero__scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.hero__scroll-text {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.hero__scroll-line {
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   KAROSHI SECTION
+   ============================================================ */
+.karoshi {
+  background: var(--color-cream);
+  padding: 110px 0;
+  position: relative;
+}
+.karoshi__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+.karoshi__kanji {
+  position: absolute;
+  right: calc(var(--container-pad) - 20px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-serif);
+  font-size: 160px;
+  font-weight: 300;
+  color: rgba(201,168,76,0.08);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.karoshi__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 54px;
+  margin-bottom: 66px;
+}
+.karoshi__label {
+  margin-bottom: 16px;
+}
+.karoshi__heading {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+.karoshi__desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+  padding-top: 8px;
+}
+.karoshi__bullets {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.karoshi__bullet {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.karoshi__bullet-icon {
+  color: var(--color-gold);
+  font-size: 11px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.karoshi__bullet-text {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-ink-light);
+}
+.karoshi__cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--color-border);
+}
+.karoshi__card {
+  padding: 38px 32px 32px;
+  border-right: 1px solid var(--color-border);
+}
+.karoshi__card:last-child {
+  border-right: none;
+}
+.karoshi__card-num {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--color-gold);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.karoshi__card-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-ink);
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.karoshi__card-text {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+}
+.karoshi__quote {
+  margin-top: 64px;
+  padding: 0 34px;
+  border-left: 2px solid var(--color-gold);
+}
+.karoshi__quote-text {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--color-ink-mid);
+}
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
+.about {
+  background: var(--color-white);
+  padding: 110px 0;
+}
+.about__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.about__image-wrap {
+  position: relative;
+}
+.about__image-frame {
+  position: absolute;
+  top: -12px;
+  left: -24px;
+  width: 271px;
+  height: 339px;
+  border: 1px solid rgba(201,168,76,0.3);
+  z-index: 0;
+}
+.about__image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 616px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.about__badge {
+  position: absolute;
+  bottom: -12px;
+  right: -20px;
+  background: var(--color-gold);
+  padding: 18px 24px;
+  z-index: 2;
+}
+.about__badge-est {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  display: block;
+  margin-bottom: 4px;
+}
+.about__badge-year {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--color-white);
+  line-height: 1;
+}
+.about__content {
+  padding-top: 16px;
+}
+.about__label {
+  margin-bottom: 16px;
+}
+.about__heading {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-ink);
+  margin-bottom: 32px;
+}
+.about__heading em {
+  font-style: italic;
+}
+.about__divider {
+  width: 40px;
+  height: 1px;
+  background: var(--color-gold);
+  margin-bottom: 28px;
+}
+.about__p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+  margin-bottom: 20px;
+}
+.about__quote {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--color-gold);
+  margin-bottom: 24px;
+}
+.about__stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--color-border);
+}
+.about__stat-num {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--color-ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.about__stat-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ============================================================
+   COMPANY OVERVIEW SECTION
+   ============================================================ */
+.company {
+  background: var(--color-cream);
+  padding: 110px 0;
+  position: relative;
+}
+.company__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+.company__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 54px;
+  margin-bottom: 60px;
+}
+.company__label {
+  margin-bottom: 16px;
+}
+.company__heading {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+.company__heading em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.company__desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+  padding-top: 8px;
+  margin-bottom: 20px;
+}
+.company__desc:last-child {
+  margin-bottom: 0;
+}
+
+/* Award band */
+.company__award {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 26px 34px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gold-border);
+  border-left: 2px solid var(--color-gold);
+  margin-bottom: 54px;
+}
+.company__award-icon {
+  font-size: 26px;
+  line-height: 1;
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+.company__award-title {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--color-ink);
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+.company__award-text {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-muted);
+}
+
+/* Locations */
+.company__locations {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 54px;
+}
+.company__locations-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-right: 6px;
+}
+.company__location {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-ink-mid);
+  padding: 9px 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+
+/* Dual mission */
+.company__mission {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  margin-bottom: 54px;
+}
+.company__mission-col {
+  padding: 40px 36px;
+  background: var(--color-white);
+  border-right: 1px solid var(--color-border);
+}
+.company__mission-col:last-child {
+  border-right: none;
+}
+.company__mission-tag {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: 14px;
+}
+.company__mission-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--color-ink);
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.company__mission-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+}
+
+/* Why choose us */
+.company__why-heading {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--color-ink);
+  line-height: 1.25;
+  margin-bottom: 34px;
+}
+.company__why {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+}
+.company__why-card {
+  padding: 38px 32px 34px;
+  border-right: 1px solid var(--color-border);
+}
+.company__why-card:last-child {
+  border-right: none;
+}
+.company__why-num {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--color-gold);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.company__why-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-ink);
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.company__why-text {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+}
+
+/* ============================================================
+   SERVICES SECTION
+   ============================================================ */
+.services {
+  background: var(--color-cream);
+  padding: 110px 0;
+}
+.services__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+.services__header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.services__label {
+  margin-bottom: 16px;
+  display: block;
+}
+.services__heading {
+  font-family: var(--font-serif);
+  font-size: 58px;
+  font-weight: 400;
+  line-height: 1.12;
+  color: var(--color-ink);
+  margin-bottom: 24px;
+}
+.services__heading em {
+  font-style: italic;
+}
+.services__sub {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+  max-width: 500px;
+  margin: 0 auto;
+}
+/* Service Block */
+.service-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 2px;
+  background: var(--color-white);
+}
+.service-block--reversed .service-block__image {
+  order: 2;
+}
+.service-block--reversed .service-block__content {
+  order: 1;
+}
+.service-block__image {
+  overflow: hidden;
+}
+.service-block__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.service-block__content {
+  padding: 96px 44px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.service-block__tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold-border);
+  padding: 4px 14px 4px 8px;
+  margin-bottom: 28px;
+}
+.service-block__tag::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.service-block__heading {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-ink);
+  margin-bottom: 28px;
+}
+.service-block__divider {
+  width: 40px;
+  height: 1px;
+  background: var(--color-gold);
+  margin-bottom: 24px;
+}
+.service-block__desc {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+  margin-bottom: 28px;
+}
+.service-block__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 52px;
+}
+.service-block__list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--color-ink-light);
+}
+.service-block__list-item::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 1px;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+.service-block__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: var(--color-ink);
+  padding: 14px 24px;
+  border: 1px solid var(--color-ink);
+  transition: background 0.2s, color 0.2s;
+}
+.service-block__link:hover {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+}
+.service-block__link-arrow {
+  font-size: 14px;
+}
+
+/* ============================================================
+   HOW WE DO IT SECTION
+   ============================================================ */
+.how {
+  background: var(--color-cream);
+  padding: 110px 0;
+}
+.how__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+.how__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 54px;
+  margin-bottom: 66px;
+}
+.how__heading {
+  font-family: var(--font-serif);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+.how__heading em {
+  font-style: italic;
+}
+.how__sub {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+  padding-top: 112px;
+}
+.how__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0;
+}
+.how__card {
+  border: 1px solid var(--color-border);
+  padding: 41px 33px 40px;
+  background: var(--color-white);
+}
+.how__card--gold {
+  background: var(--color-gold);
+}
+.how__card-num-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.how__card-num {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--color-gold);
+  line-height: 1;
+}
+.how__card--gold .how__card-num {
+  color: rgba(255,255,255,0.7);
+}
+.how__card-icon {
+  font-size: 14px;
+  color: var(--color-gold);
+}
+.how__card--gold .how__card-icon {
+  color: rgba(255,255,255,0.7);
+}
+.how__card-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--color-ink);
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.how__card--gold .how__card-title {
+  color: var(--color-white);
+}
+.how__card-divider {
+  width: 29px;
+  height: 1px;
+  background: var(--color-gold);
+  margin-bottom: 18px;
+}
+.how__card--gold .how__card-divider {
+  background: rgba(255,255,255,0.5);
+}
+.how__card-text {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+}
+.how__card--gold .how__card-text {
+  color: rgba(255,255,255,0.8);
+}
+/* Community Picnic card */
+.how__picnic-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 12px;
+}
+.how__picnic-heading {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+.how__picnic-divider {
+  width: 32px;
+  height: 1px;
+  background: rgba(255,255,255,0.45);
+  margin-bottom: 20px;
+}
+.how__picnic-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.how__picnic-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.85);
+}
+.how__picnic-detail::before {
+  content: '◆';
+  color: rgba(255,255,255,0.6);
+  font-size: 9px;
+  flex-shrink: 0;
+}
+.how__picnic-note {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 28px;
+}
+.how__picnic-btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 10px 20px;
+  transition: background 0.2s;
+}
+.how__picnic-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* ============================================================
+   GALLERY SECTION
+   ============================================================ */
+.gallery {
+  background: var(--color-dark-bg);
+  padding: 110px 0 0;
+}
+.gallery__inner {
+  padding: 0 80px;
+}
+.gallery__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+.gallery__heading {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-white);
+  margin-top: 12px;
+}
+.gallery__heading em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.gallery__controls {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 4px;
+}
+.gallery__btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-gold-border);
+  background: transparent;
+  color: var(--color-gold);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.gallery__btn:hover {
+  background: var(--color-gold-light);
+}
+.gallery__track-wrap {
+  overflow: hidden;
+}
+.gallery__track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.5s ease;
+}
+.gallery__slide {
+  position: relative;
+  flex: 0 0 300px;
+  height: 400px;
+  overflow: hidden;
+}
+.gallery__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery__slide:hover img {
+  transform: scale(1.04);
+}
+.gallery__slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
+  padding: 32px 16px 16px;
+}
+.gallery__slide-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+}
+.gallery__footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 38px 80px;
+}
+.gallery__footer-line {
+  width: 60px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+.gallery__footer-line--wide {
+  width: 140px;
+}
+.gallery__footer-text {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   TESTIMONIALS SECTION
+   ============================================================ */
+.testimonials {
+  background: var(--color-white);
+  padding: 110px 0;
+}
+.testimonials__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+.testimonials__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.testimonials__heading {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-top: 12px;
+}
+.testimonials__heading em {
+  font-style: italic;
+}
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--color-border);
+}
+.testimonial {
+  padding: 41px 33px 33px;
+  border-right: 1px solid var(--color-border);
+}
+.testimonial:last-child {
+  border-right: none;
+}
+.testimonial__service {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 20px;
+}
+.testimonial__quote {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--color-ink-mid);
+  margin-bottom: 32px;
+}
+.testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.testimonial__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-white);
+  flex-shrink: 0;
+}
+.testimonial__name {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-ink);
+  margin-bottom: 3px;
+}
+.testimonial__location {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 300;
+  color: var(--color-muted);
+}
+
+/* ============================================================
+   TEAM SECTION
+   ============================================================ */
+.team {
+  background: var(--color-white);
+  padding: 110px 0;
+}
+.team__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.team__header {
+  text-align: center;
+  margin-bottom: 0;
+}
+.team__heading {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+.team__heading em {
+  font-style: italic;
+}
+.team__sub {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+  max-width: 480px;
+  margin: 0 auto;
+}
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 347px));
+  justify-content: center;
+  gap: 8px;
+}
+.team__cards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  padding-top: 65.94px;
+  width: 100%;
+}
+.team__cards .team__grid {
+  width: 100%;
+}
+.team-card {
+  border: 1px solid var(--color-border-light);
+  overflow: hidden;
+}
+.team-card__image {
+  height: 260px;
+  overflow: hidden;
+}
+.team-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.team-card:hover .team-card__image img {
+  transform: scale(1.04);
+}
+.team-card__placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.team-card__placeholder-inner {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--color-gold-border2);
+  border-radius: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.team-card__placeholder-initials {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--color-gold);
+  opacity: 0.55;
+}
+.team-card__placeholder-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: var(--color-gold-light);
+  border: 1px solid var(--color-gold-border);
+  padding: 6px 12px;
+}
+.team-card__placeholder-badge-text {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.team-card__body {
+  padding: 28px;
+  background: var(--color-cream);
+}
+.team-card__role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 10px;
+}
+.team-card__name {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--color-ink);
+  margin-bottom: 14px;
+}
+.team-card__divider {
+  width: 29px;
+  height: 1px;
+  background: var(--color-gold);
+  margin-bottom: 16px;
+}
+.team-card__bio {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--color-muted);
+}
+/* Referral Banner */
+.referral {
+  margin-top: 56px;
+  background: var(--color-ink);
+  padding: 48px 48px 48px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+.referral__label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 12px;
+}
+.referral__heading {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--color-white);
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.referral__text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+  max-width: 420px;
+}
+.referral__text strong {
+  color: var(--color-gold);
+  font-weight: 400;
+}
+.referral__btn {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold-border);
+  padding: 14px 28px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.referral__btn:hover {
+  background: var(--color-gold-light);
+}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+.contact {
+  background: var(--color-cream);
+  padding: 110px 0;
+}
+.contact__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+.contact__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.contact__heading {
+  font-family: var(--font-serif);
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+.contact__sub {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-muted);
+}
+.contact__body {
+  display: grid;
+  grid-template-columns: 383px 1fr;
+  gap: 55px;
+}
+/* Left column */
+.contact__links {
+  display: flex;
+  flex-direction: column;
+}
+.contact__link-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  padding: 20px 20px;
+  margin-bottom: 2px;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.contact__link-item:hover {
+  border-color: var(--color-gold);
+}
+.contact__link-item-dot {
+  color: var(--color-gold);
+  font-size: 10px;
+  font-style: normal;
+}
+.contact__info {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.contact__info-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.contact__info-icon {
+  width: 18px;
+  flex-shrink: 0;
+  font-size: 15px;
+  color: var(--color-muted);
+  margin-top: 2px;
+}
+.contact__info-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 4px;
+}
+.contact__info-value {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-ink);
+}
+.contact__info-value a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.contact__line-note {
+  margin-top: 28px;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  padding: 21px 21px;
+}
+.contact__line-note-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-muted);
+}
+.contact__line-note-text strong {
+  font-weight: 500;
+  color: var(--color-ink);
+}
+/* Form */
+.contact__form-wrap {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  padding: 45px;
+}
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 24px;
+}
+.form__field:last-of-type {
+  margin-bottom: 0;
+}
+.form__label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 10px;
+}
+.form__input,
+.form__select,
+.form__textarea {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 300;
+  color: var(--color-ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  padding: 14px 0;
+  width: 100%;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s;
+}
+.form__input::placeholder,
+.form__select::placeholder,
+.form__textarea::placeholder {
+  color: var(--color-cream-dark);
+}
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  border-color: var(--color-gold);
+}
+.form__select-wrap {
+  position: relative;
+}
+.form__select-wrap::after {
+  content: '▼';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--color-gold);
+  pointer-events: none;
+}
+.form__textarea {
+  resize: none;
+  height: 110px;
+}
+.form__privacy {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--color-muted-light);
+  margin-bottom: 20px;
+  margin-top: 4px;
+}
+.form__submit {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  background: var(--color-ink);
+  border: none;
+  padding: 16px 40px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form__submit:hover {
+  background: var(--color-gold);
+}
+.form__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.form__status {
+  margin-top: 16px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+.form__status--ok {
+  color: #2e7d32;
+}
+.form__status--error {
+  color: #b3261e;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: var(--color-dark-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  padding: 64px 24px 32px 24px;
+}
+.footer__inner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: 363px 181px 181px 181px;
+  gap: 48px;
+  padding-bottom: 56px;
+}
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.footer__logo-icon {
+  width: 44px;
+  height: 44px;
+}
+.footer__logo-icon svg {
+  width: 40px;
+  height: 40px;
+}
+.footer__logo-name {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.footer__logo-img {
+  height: 72px;
+  width: auto;
+  display: block;
+}
+.footer__tagline {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.45);
+  max-width: 280px;
+  margin-bottom: 20px;
+}
+.footer__location {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 28px;
+}
+.footer__social {
+  display: flex;
+  gap: 8px;
+}
+.footer__social-link {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 6px 12px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.footer__social-link:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+.footer__col-title {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 20px;
+}
+.footer__col-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.footer__col-link {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.2s;
+}
+.footer__col-link:hover {
+  color: var(--color-gold);
+}
+.footer__contact-links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer__contact-link {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--color-gold);
+  transition: opacity 0.2s;
+}
+.footer__contact-link:hover {
+  opacity: 0.75;
+}
+.footer__bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 20px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.footer__copy {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.3);
+}
+.footer__motto {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-gold);
+  opacity: 0.7;
+}
+.footer__legal {
+  display: flex;
+  gap: 28px;
+}
+.footer__legal-link {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.3);
+  transition: color 0.2s;
+}
+.footer__legal-link:hover {
+  color: rgba(255,255,255,0.6);
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  :root {
+    --container-pad: 40px;
+  }
+  .navbar__nav,
+  .navbar__cta {
+    display: none;
+  }
+  .navbar__hamburger {
+    display: flex;
+  }
+  .navbar__mobile-menu {
+    display: flex;
+    padding: 0 40px;
+  }
+  .karoshi__header {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .karoshi__kanji {
+    display: none;
+  }
+  .karoshi__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .karoshi__card {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .karoshi__card:nth-child(2) {
+    border-right: none;
+  }
+  .about__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .about__image {
+    height: 420px;
+  }
+  .about__image-frame {
+    display: none;
+  }
+  .company__header {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .company__mission {
+    grid-template-columns: 1fr;
+  }
+  .company__mission-col {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .company__mission-col:last-child {
+    border-bottom: none;
+  }
+  .company__why {
+    grid-template-columns: 1fr;
+  }
+  .company__why-card {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .company__why-card:last-child {
+    border-bottom: none;
+  }
+  .services__heading {
+    font-size: 44px;
+  }
+  .service-block {
+    grid-template-columns: 1fr;
+  }
+  .service-block__image {
+    height: 320px;
+  }
+  .service-block--reversed .service-block__image {
+    order: 0;
+  }
+  .service-block--reversed .service-block__content {
+    order: 1;
+  }
+  .how__header {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .how__sub {
+    padding-top: 0;
+  }
+  .how__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery__inner {
+    padding: 0 40px;
+  }
+  .gallery__footer {
+    padding: 38px 40px;
+  }
+  .testimonials__grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonial {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .testimonial:last-child {
+    border-bottom: none;
+  }
+  .team__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .contact__body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .referral {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  :root {
+    --container-pad: 20px;
+  }
+  .navbar {
+    padding: 0 20px;
+  }
+  .navbar__mobile-menu {
+    padding: 0 20px;
+  }
+  .navbar__mobile-menu.is-open {
+    padding: 24px 20px 32px;
+  }
+  .hero {
+    height: 100svh;
+    min-height: 560px;
+  }
+  .hero__title {
+    font-size: 48px;
+  }
+  .hero__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .karoshi {
+    padding: 72px 0;
+  }
+  .karoshi__heading {
+    font-size: 38px;
+  }
+  .karoshi__cards {
+    grid-template-columns: 1fr;
+  }
+  .karoshi__card {
+    border-right: none;
+  }
+  .about {
+    padding: 72px 0;
+  }
+  .about__heading {
+    font-size: 38px;
+  }
+  .about__image {
+    height: 320px;
+  }
+  .company {
+    padding: 72px 0;
+  }
+  .company__heading {
+    font-size: 38px;
+  }
+  .company__why-heading {
+    font-size: 27px;
+  }
+  .company__award {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 26px 24px;
+  }
+  .company__mission-col {
+    padding: 32px 24px;
+  }
+  .services {
+    padding: 72px 0;
+  }
+  .services__heading {
+    font-size: 36px;
+  }
+  .service-block__content {
+    padding: 48px 24px 48px;
+  }
+  .how {
+    padding: 72px 0;
+  }
+  .how__heading {
+    font-size: 38px;
+  }
+  .how__grid {
+    grid-template-columns: 1fr;
+  }
+  .gallery__heading {
+    font-size: 38px;
+  }
+  .gallery__slide {
+    flex: 0 0 260px;
+    height: 340px;
+  }
+  .gallery__inner {
+    padding: 0 20px;
+  }
+  .gallery__footer {
+    padding: 38px 20px;
+  }
+  .testimonials {
+    padding: 72px 0;
+  }
+  .testimonials__heading {
+    font-size: 38px;
+  }
+  .team {
+    padding: 72px 0;
+  }
+  .team__heading {
+    font-size: 38px;
+  }
+  .team__grid {
+    grid-template-columns: 1fr;
+  }
+  .contact {
+    padding: 72px 0;
+  }
+  .contact__heading {
+    font-size: 38px;
+  }
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+  .contact__form-wrap {
+    padding: 28px 24px;
+  }
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE POLISH (overflow + scaling fixes)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Kill any horizontal overflow / sideways scroll */
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  /* Manual line breaks force lines wider than the screen — let text wrap */
+  .hero__body br,
+  .hero__subtitle br,
+  .how__picnic-note br,
+  .contact__line-note-text br {
+    display: none;
+  }
+  .hero__content {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .hero__title {
+    font-size: 44px;
+  }
+  .hero__subtitle {
+    font-size: 15px;
+  }
+  .hero__body {
+    font-size: 13px;
+  }
+  /* Make sure media/cards never exceed the viewport */
+  .about__image,
+  .service-block__image,
+  .team-card__image,
+  .gallery__slide img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 18px;
+  }
+  .navbar__logo-img {
+    height: 44px;
+  }
+  .hero__title {
+    font-size: 34px;
+  }
+  .hero__eyebrow {
+    letter-spacing: 1.5px;
+  }
+  .hero__buttons {
+    width: 100%;
+  }
+  .btn--gold,
+  .btn--outline-white {
+    width: 100%;
+    text-align: center;
+  }
+  .karoshi__heading,
+  .about__heading,
+  .services__heading,
+  .how__heading,
+  .gallery__heading,
+  .testimonials__heading,
+  .team__heading,
+  .contact__heading {
+    font-size: 30px;
+  }
+  .karoshi__quote {
+    padding: 0 20px;
+  }
+  .karoshi__quote-text {
+    font-size: 18px;
+  }
+  .service-block__content {
+    padding: 40px 22px;
+  }
+  .gallery__slide {
+    flex: 0 0 82vw;
+    height: 300px;
+  }
+  .referral {
+    padding: 32px 22px;
+  }
+  .contact__form-wrap {
+    padding: 24px 18px;
+  }
+  .footer__social {
+    flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+<body>
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<header class="navbar" id="navbar">
+  <a href="#" class="navbar__logo" aria-label="Rirakkusu Japan home">
+    <img class="navbar__logo-img" src="images/f65a0da8d98410db9da9e716848f143ee6c8fd04.png" alt="Rirakkusu Japan" />
+  </a>
+  <nav aria-label="Main navigation">
+    <ul class="navbar__nav">
+      <li><a class="navbar__nav-link" href="#about">About</a></li>
+      <li><a class="navbar__nav-link" href="#company">Company</a></li>
+      <li><a class="navbar__nav-link" href="#services">Services</a></li>
+      <li><a class="navbar__nav-link" href="#team">Team</a></li>
+      <li><a class="navbar__nav-link" href="#gallery">Gallery</a></li>
+      <li><a class="navbar__nav-link" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <a href="book.html" class="navbar__cta">Book Now</a>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button type="button" class="lang-btn active" data-lang="en">EN</button>
+    <span class="lang-sep">/</span>
+    <button type="button" class="lang-btn" data-lang="ja">日本語</button>
+  </div>
+  <button
+    class="navbar__hamburger"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+    aria-label="Toggle navigation"
+    id="hamburger-btn"
+  >
+    <span class="navbar__hamburger-bar"></span>
+    <span class="navbar__hamburger-bar"></span>
+    <span class="navbar__hamburger-bar"></span>
+  </button>
+  <nav class="navbar__mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a class="navbar__nav-link" href="#about">About</a>
+    <a class="navbar__nav-link" href="#company">Company</a>
+    <a class="navbar__nav-link" href="#services">Services</a>
+    <a class="navbar__nav-link" href="#team">Team</a>
+    <a class="navbar__nav-link" href="#gallery">Gallery</a>
+    <a class="navbar__nav-link" href="#contact">Contact</a>
+    <a class="navbar__cta" href="book.html">Book Now</a>
+  </nav>
+</header>
+
+<main>
+<!-- ============================================================
+     HERO SECTION
+     ============================================================ -->
+<section class="hero" id="home" aria-label="Hero">
+  <div class="hero__bg" role="img" aria-label="Yoyogi Park, Tokyo — people relaxing on the grass with city skyline in background"></div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Rirakkusu Japan</p>
+    <h1 class="hero__title">
+      Reclaim Your <em>Peace</em><br>&amp; Your <em>Time</em>
+    </h1>
+    <p class="hero__subtitle">A sanctuary for the busy professional — built for modern Japan.</p>
+    <p class="hero__body">Japan works hard. We know. We see it every day. Rirakkusu Japan<br>was built for the people who give everything — and deserve to get<br>something back.</p>
+    <div class="hero__buttons">
+      <a href="book.html?service=picnic" class="btn--gold">Book a Picnic Experience</a>
+      <a href="book.html?service=personal" class="btn--outline-white">Delegate Your Tasks</a>
+    </div>
+  </div>
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-text">Scroll</span>
+    <span class="hero__scroll-line"></span>
+  </div>
+</section>
+
+<!-- ============================================================
+     KAROSHI SECTION
+     ============================================================ -->
+<section class="karoshi" id="karoshi" aria-label="The Problem — Karoshi">
+  <div class="karoshi__kanji" aria-hidden="true">過労</div>
+  <div class="karoshi__inner">
+    <div class="karoshi__header">
+      <div>
+        <p class="label karoshi__label">The Problem</p>
+        <h2 class="karoshi__heading">Japan Has a Problem.<br>We Call It Karoshi.</h2>
+      </div>
+      <div>
+        <p class="karoshi__desc">Death from overwork isn't just a statistic in Japan. It's a culture. Long hours, empty weekends, and no time to simply breathe have become the norm — and they're costing people their health, their joy, and their lives.</p>
+        <div class="karoshi__bullets">
+          <div class="karoshi__bullet">
+            <span class="karoshi__bullet-icon">◆</span>
+            <span class="karoshi__bullet-text">You deserve better than that.</span>
+          </div>
+          <div class="karoshi__bullet">
+            <span class="karoshi__bullet-icon">◆</span>
+            <span class="karoshi__bullet-text">We built Rirakkusu Japan because we believe your time is sacred — and your peace is non-negotiable.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="karoshi__cards">
+      <div class="karoshi__card">
+        <p class="karoshi__card-num">01</p>
+        <h3 class="karoshi__card-title">Extreme Stress</h3>
+        <p class="karoshi__card-text">Long working hours with little to no recovery time — the body and mind pay the price over time.</p>
+      </div>
+      <div class="karoshi__card">
+        <p class="karoshi__card-num">02</p>
+        <h3 class="karoshi__card-title">No Way to Decompress</h3>
+        <p class="karoshi__card-text">A lack of accessible, curated relaxation experiences means people never truly switch off from the work cycle.</p>
+      </div>
+      <div class="karoshi__card">
+        <p class="karoshi__card-num">03</p>
+        <h3 class="karoshi__card-title">Operational Overwhelm</h3>
+        <p class="karoshi__card-text">Buried in minor but time-consuming tasks that pull professionals away from what truly matters.</p>
+      </div>
+      <div class="karoshi__card">
+        <p class="karoshi__card-num">04</p>
+        <h3 class="karoshi__card-title">No Holistic Support</h3>
+        <p class="karoshi__card-text">No service offered both mental wellness relief and practical task delegation under one brand — until now.</p>
+      </div>
+    </div>
+    <blockquote class="karoshi__quote">
+      <p class="karoshi__quote-text">"Rirakkusu Japan exists for one reason — to give you your life back. Not just an hour of it. All of it."</p>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT SECTION
+     ============================================================ -->
+<section class="about" id="about" aria-label="About Rirakkusu Japan">
+  <div class="about__inner">
+    <div class="about__image-wrap">
+      <div class="about__image-frame" aria-hidden="true"></div>
+      <img
+        class="about__image"
+        src="images/gettyimages-514379782-612x612.jpg"
+        alt="Friends enjoying a relaxed picnic together in a Japanese park"
+      />
+      <div class="about__badge">
+        <span class="about__badge-est">Est.</span>
+        <span class="about__badge-year">2026</span>
+      </div>
+    </div>
+    <div class="about__content">
+      <p class="label about__label">Our Story</p>
+      <h2 class="about__heading">
+        We Saw It.<br>
+        We Felt It.<br>
+        <em>So We Built Something About It.</em>
+      </h2>
+      <div class="about__divider" aria-hidden="true"></div>
+      <p class="about__p">Rirakkusu Japan is a dual-service company built on one mission: give people their time, energy, and peace of mind back.</p>
+      <p class="about__p"><strong>Relax Picnic</strong> addresses the mental and physical fatigue side. <strong>Relax Tasks</strong> tackles the operational overload side. Together, the mission is simple.</p>
+      <p class="about__quote">"We don't just plan picnics. We don't just manage tasks. We build experiences and systems around you so you can finally breathe again."</p>
+      <div class="about__stats">
+        <div>
+          <p class="about__stat-num">10+</p>
+          <p class="about__stat-label">Experiences</p>
+        </div>
+        <div>
+          <p class="about__stat-num">4</p>
+          <p class="about__stat-label">Locations</p>
+        </div>
+        <div>
+          <p class="about__stat-num">98%</p>
+          <p class="about__stat-label">Satisfaction</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COMPANY OVERVIEW SECTION
+     ============================================================ -->
+<section class="company" id="company" aria-label="Company Overview">
+  <div class="company__inner">
+    <div class="company__header">
+      <div>
+        <p class="label company__label">Company Overview</p>
+        <h2 class="company__heading">Wellness Tech &amp;<br><em>Premium Lifestyle</em><br>Services</h2>
+      </div>
+      <div>
+        <p class="company__desc">Rirakkusu Japan is an award-winning wellness tech and premium lifestyle services provider operating across Japan's major metropolitan hubs — Tokyo, Kyoto, Osaka, and Nara. We are dedicated to redefining work-life balance and combating corporate burnout.</p>
+        <p class="company__desc">We serve a dual mission: helping fast-scaling businesses protect and retain their top talent, while enabling busy individuals to reclaim their personal time through impeccable execution, high-aesthetic experiences, and seamless task delegation.</p>
+      </div>
+    </div>
+
+    <div class="company__award">
+      <span class="company__award-icon" aria-hidden="true">✦</span>
+      <div>
+        <p class="company__award-title">First Place Winner — 2026 LUJ Global Student Innovation Challenge</p>
+        <p class="company__award-text">A flagship partner ecosystem event of SusHi Tech Tokyo.</p>
+      </div>
+    </div>
+
+    <div class="company__locations">
+      <span class="company__locations-label">Operating In</span>
+      <span class="company__location">Tokyo</span>
+      <span class="company__location">Kyoto</span>
+      <span class="company__location">Osaka</span>
+      <span class="company__location">Nara</span>
+    </div>
+
+    <div class="company__mission">
+      <div class="company__mission-col">
+        <span class="company__mission-tag">For Businesses</span>
+        <h3 class="company__mission-title">Protect &amp; Retain Your Top Talent</h3>
+        <p class="company__mission-text">Turn-key team building days, post-launch milestone rewards, and stress-free executive off-sites that foster genuine connection and combat burnout — plus bilingual assistants who absorb the operational friction slowing your core personnel down.</p>
+      </div>
+      <div class="company__mission-col">
+        <span class="company__mission-tag">For Individuals</span>
+        <h3 class="company__mission-title">Reclaim Your Personal Time</h3>
+        <p class="company__mission-text">Premium, private outdoor setups for families, couples, or VIP groups seeking an elegant, stress-free escape — backed by concierge support that handles the everyday tasks and complex requests eating into your week.</p>
+      </div>
+    </div>
+
+    <h3 class="company__why-heading">Why Businesses &amp; Individuals Choose Us</h3>
+    <div class="company__why">
+      <div class="company__why-card">
+        <p class="company__why-num">01</p>
+        <h4 class="company__why-title">Proven Credibility</h4>
+        <p class="company__why-text">Backed by top-tier ecosystem recognition at the 2026 Global Student Innovation Challenge.</p>
+      </div>
+      <div class="company__why-card">
+        <p class="company__why-num">02</p>
+        <h4 class="company__why-title">Burnout Protection</h4>
+        <p class="company__why-text">We transition corporate wellness from a vague concept into measurable time savings and retention metrics.</p>
+      </div>
+      <div class="company__why-card">
+        <p class="company__why-num">03</p>
+        <h4 class="company__why-title">Flawless Bilingual Operations</h4>
+        <p class="company__why-text">Built to serve both local Japanese enterprises and multinational professionals seamlessly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES SECTION
+     ============================================================ -->
+<section class="services" id="services" aria-label="Our Services">
+  <div class="services__inner">
+    <div class="services__header">
+      <span class="label services__label">Two Problems. One Solution. One Brand.</span>
+      <h2 class="services__heading">We Don't Just Plan Picnics.<br><em>We Don't Just Manage Tasks.</em></h2>
+      <p class="services__sub">We build experiences and systems around you so you can finally breathe again. Together — you get your time back.</p>
+    </div>
+
+    <!-- Relax Picnic -->
+    <div class="service-block">
+      <div class="service-block__image" style="min-height:656px;">
+        <img
+          src="images/c876f13f4dce115adf932abda167a6d7c42c459b.jpg"
+          alt="Group enjoying a curated picnic under cherry blossom trees in Japan"
+          style="width:100%;height:100%;object-fit:cover;"
+        />
+      </div>
+      <div class="service-block__content">
+        <span class="service-block__tag">Relax Picnic</span>
+        <h3 class="service-block__heading">You Show Up. We Handle Everything Else.</h3>
+        <div class="service-block__divider" aria-hidden="true"></div>
+        <p class="service-block__desc">Curated outdoor experiences built around you — whether it's a date, a family day, a birthday, or a corporate wellness event. Nothing generic. Ever.</p>
+        <ul class="service-block__list">
+          <li class="service-block__list-item">Custom menu curation</li>
+          <li class="service-block__list-item">Premium tableware &amp; styling</li>
+          <li class="service-block__list-item">Seasonal floral arrangements</li>
+          <li class="service-block__list-item">Date, family, birthday &amp; corporate</li>
+          <li class="service-block__list-item">Photography add-on available</li>
+        </ul>
+        <a href="book.html?service=picnic" class="service-block__link">Book a Picnic Experience <span class="service-block__link-arrow">→</span></a>
+      </div>
+    </div>
+
+    <!-- Relax Tasks -->
+    <div class="service-block service-block--reversed">
+      <div class="service-block__content" style="background:#faf8f3;">
+        <span class="service-block__tag">Relax Tasks</span>
+        <h3 class="service-block__heading">Delegate the Tasks Draining Your Day.</h3>
+        <div class="service-block__divider" aria-hidden="true"></div>
+        <p class="service-block__desc">Inbox management, scheduling, research, errands — handled by a dedicated assistant, tailored to how you work. If you can think of it, we can get it done.</p>
+        <ul class="service-block__list">
+          <li class="service-block__list-item">Inbox &amp; email management</li>
+          <li class="service-block__list-item">Calendar &amp; scheduling</li>
+          <li class="service-block__list-item">Research &amp; reporting</li>
+          <li class="service-block__list-item">Errands &amp; coordination</li>
+          <li class="service-block__list-item">Ongoing retainer options</li>
+        </ul>
+        <a href="book.html?service=personal" class="service-block__link">Delegate Your Tasks <span class="service-block__link-arrow">→</span></a>
+      </div>
+      <div class="service-block__image" style="min-height:666px;">
+        <img
+          src="images/cbf98afe831b069b7c84243fb02a929acaa4ac0f.jpg"
+          alt="Traditional Japanese interior with lantern and garden view, representing Relax Tasks calm"
+          style="width:100%;height:100%;object-fit:cover;"
+        />
+      </div>
+    </div>
+
+    <!-- Make a Wish -->
+    <div class="service-block">
+      <div class="service-block__image" style="min-height:666px;">
+        <img
+          src="images/ad82a1af40f03a54897cd745520b369843e2f67c.jpg"
+          alt="Elegantly set long dinner table outdoors, representing bespoke Make a Wish experiences"
+          style="width:100%;height:100%;object-fit:cover;"
+        />
+      </div>
+      <div class="service-block__content">
+        <span class="service-block__tag">Make a Wish</span>
+        <h3 class="service-block__heading">Nothing Is Too Big. Nothing Is Too Small.</h3>
+        <div class="service-block__divider" aria-hidden="true"></div>
+        <p class="service-block__desc">What if you could ask for anything and someone actually made it happen? Plan a surprise team dinner. Source a gift. Help me relocate. Organise my week.</p>
+        <ul class="service-block__list">
+          <li class="service-block__list-item">Surprise event planning</li>
+          <li class="service-block__list-item">Gift sourcing &amp; delivery</li>
+          <li class="service-block__list-item">Relocation assistance</li>
+          <li class="service-block__list-item">Bespoke personal concierge</li>
+          <li class="service-block__list-item">Completely tailored to you</li>
+        </ul>
+        <a href="book.html?service=va" class="service-block__link">Make a Wish <span class="service-block__link-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOW WE DO IT SECTION
+     ============================================================ -->
+<section class="how" id="how" aria-label="How We Do It">
+  <div class="how__inner">
+    <div class="how__header">
+      <div>
+        <p class="label" style="margin-bottom:16px;">How We Do It</p>
+        <h2 class="how__heading">How We Make It Happen —<br><em>For You, Around You</em></h2>
+      </div>
+      <div>
+        <p class="how__sub">We don't do generic. Every experience, every task, every event we touch is curated specifically around the person or company we're serving. Here's how:</p>
+      </div>
+    </div>
+    <div class="how__grid">
+      <!-- Row 1 -->
+      <div class="how__card">
+        <div class="how__card-num-row">
+          <span class="how__card-num">01</span>
+          <span class="how__card-icon">◎</span>
+        </div>
+        <h3 class="how__card-title">We Show Up So You Can Switch Off</h3>
+        <div class="how__card-divider" aria-hidden="true"></div>
+        <p class="how__card-text">From the blankets to the food to the decor — our picnic team handles every detail before you arrive. You bring yourself. We bring everything else.</p>
+      </div>
+      <div class="how__card">
+        <div class="how__card-num-row">
+          <span class="how__card-num">02</span>
+          <span class="how__card-icon">◈</span>
+        </div>
+        <h3 class="how__card-title">We Take the Small Things Off Your Plate</h3>
+        <div class="how__card-divider" aria-hidden="true"></div>
+        <p class="how__card-text">Emails. Scheduling. Research. Errands. Our task assistants are trained, dedicated, and briefed on your workflow — not a template.</p>
+      </div>
+      <div class="how__card">
+        <div class="how__card-num-row">
+          <span class="how__card-num">03</span>
+          <span class="how__card-icon">◇</span>
+        </div>
+        <h3 class="how__card-title">We Build Around You — Not the Other Way Around</h3>
+        <div class="how__card-divider" aria-hidden="true"></div>
+        <p class="how__card-text">Couples, families, corporates, solo professionals — every experience is designed for who you are, not who we assume you to be.</p>
+      </div>
+      <!-- Row 2 -->
+      <div class="how__card">
+        <div class="how__card-num-row">
+          <span class="how__card-num">04</span>
+          <span class="how__card-icon">◉</span>
+        </div>
+        <h3 class="how__card-title">We Start With Community</h3>
+        <div class="how__card-divider" aria-hidden="true"></div>
+        <p class="how__card-text">Before we ask for your business, we invite you in. Free community picnics, open doors, real conversations. Feel Rirakkusu Japan before you ever book it.</p>
+      </div>
+      <div class="how__card">
+        <div class="how__card-num-row">
+          <span class="how__card-num">05</span>
+          <span class="how__card-icon">◆</span>
+        </div>
+        <h3 class="how__card-title">We Grow With You</h3>
+        <div class="how__card-divider" aria-hidden="true"></div>
+        <p class="how__card-text">Refer a client. Build a partnership. Join a retainer. We're not a one-time service — we're a long-term relationship with your peace of mind.</p>
+      </div>
+      <!-- Community Picnic gold card -->
+      <div class="how__card how__card--gold">
+        <p class="how__picnic-label">Community Picnic</p>
+        <h3 class="how__picnic-heading">You're Invited.</h3>
+        <div class="how__picnic-divider" aria-hidden="true"></div>
+        <div class="how__picnic-details">
+          <span class="how__picnic-detail">Last Saturday of the Month</span>
+          <span class="how__picnic-detail">Yoyogi Park, Tokyo</span>
+          <span class="how__picnic-detail">12PM – 4PM</span>
+          <span class="how__picnic-detail">FREE Entry</span>
+        </div>
+        <p class="how__picnic-note">Come as you are. Leave lighter than you arrived.<br>This is what Rirakkusu Japan feels like.</p>
+        <a href="#contact" class="how__picnic-btn">RSVP via LINE · RJT</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GALLERY SECTION
+     ============================================================ -->
+<section class="gallery" id="gallery" aria-label="Gallery — Moments Captured">
+  <div class="gallery__inner">
+    <div class="gallery__header">
+      <div>
+        <p class="label" style="color:var(--color-gold);margin-bottom:12px;">Moments Captured</p>
+        <h2 class="gallery__heading">A Glimpse of <em>Our World</em></h2>
+      </div>
+      <div class="gallery__controls">
+        <button class="gallery__btn" id="gallery-prev" aria-label="Scroll gallery left">←</button>
+        <button class="gallery__btn" id="gallery-next" aria-label="Scroll gallery right">→</button>
+      </div>
+    </div>
+    <div class="gallery__track-wrap" aria-label="Gallery images">
+      <div class="gallery__track" id="gallery-track">
+        <div class="gallery__slide">
+          <img src="images/0a0a655e310dae1a3bce3c31b9970ebc0c906c24.jpg" alt="Woman under cherry blossoms — Cherry Blossom Season" />
+          <div class="gallery__slide-caption"><span class="gallery__slide-label">Cherry Blossom Season</span></div>
+        </div>
+        <div class="gallery__slide">
+          <img src="images/f018656ed5e079f0acc9a814ab8730d032cf815c.jpg" alt="Friends enjoying a picnic in the park — Yoyogi Picnic" />
+          <div class="gallery__slide-caption"><span class="gallery__slide-label">Yoyogi Picnic</span></div>
+        </div>
+        <div class="gallery__slide">
+          <img src="images/7ce9597304aca9ed11dd9481a89e4582dae8b0d9.jpg" alt="Kinkaku-ji golden pavilion reflected in water — Kinkaku-ji Serenity" />
+          <div class="gallery__slide-caption"><span class="gallery__slide-label">Kinkaku-ji Serenity</span></div>
+        </div>
+        <div class="gallery__slide">
+          <img src="images/49b46d81ca70db194ab9ed342677b7d9ecabf47f.jpg" alt="Couple on a bench under cherry blossoms — Quiet Moments" />
+          <div class="gallery__slide-caption"><span class="gallery__slide-label">Quiet Moments</span></div>
+        </div>
+        <div class="gallery__slide">
+          <img src="images/cbf98afe831b069b7c84243fb02a929acaa4ac0f.jpg" alt="Traditional Japanese tea room with lantern — Kimono Experience" />
+          <div class="gallery__slide-caption"><span class="gallery__slide-label">Kimono Experience</span></div>
+        </div>
+        <div class="gallery__slide">
+          <img src="images/c876f13f4dce115adf932abda167a6d7c42c459b.jpg" alt="People relaxing in a Tokyo park — City Walks" />
+          <div class="gallery__slide-caption"><span class="gallery__slide-label">City Walks</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gallery__footer">
+    <div class="gallery__footer-line gallery__footer-line--wide"></div>
+    <div class="gallery__footer-line" style="width:60px;opacity:0.4;"></div>
+    <span class="gallery__footer-text">Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS SECTION
+     ============================================================ -->
+<section class="testimonials" id="testimonials" aria-label="Guest Voices">
+  <div class="testimonials__inner">
+    <div class="testimonials__header">
+      <p class="label">Guest Voices</p>
+      <h2 class="testimonials__heading">They Came. They <em>Breathed Again.</em></h2>
+    </div>
+    <div class="testimonials__grid">
+      <div class="testimonial">
+        <p class="testimonial__service">Relax Picnic</p>
+        <blockquote class="testimonial__quote">"I hadn't truly switched off in two years. Rirakkusu Japan gave me back an afternoon that felt like a whole week of rest."</blockquote>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar" aria-hidden="true">H</div>
+          <div>
+            <p class="testimonial__name">Haruka N.</p>
+            <p class="testimonial__location">Tokyo, Japan</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial__service">Relax Tasks</p>
+        <blockquote class="testimonial__quote">"They took over my inbox for a week. I cried — I actually cried at how much lighter I felt. Relax Tasks is not optional. It's essential."</blockquote>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar" aria-hidden="true">M</div>
+          <div>
+            <p class="testimonial__name">Marcus T.</p>
+            <p class="testimonial__location">Singapore</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial__service">Meet &amp; Greet</p>
+        <blockquote class="testimonial__quote">"The meet and greet made Japan feel like home within hours. I felt guided, cared for, and finally present."</blockquote>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar" aria-hidden="true">S</div>
+          <div>
+            <p class="testimonial__name">Sofia R.</p>
+            <p class="testimonial__location">Lagos, Nigeria</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TEAM SECTION
+     ============================================================ -->
+<section class="team" id="team" aria-label="The Team">
+  <div class="team__inner">
+    <div class="team__header">
+      <p class="label">The People Behind It</p>
+      <h2 class="team__heading">A Team Built on <em>Purpose</em></h2>
+      <p class="team__sub">Every person at Rirakkusu Japan was chosen because they believe in the mission: give people their time, energy, and peace of mind back.</p>
+    </div>
+    <div class="team__cards">
+    <div class="team__grid">
+      <!-- Benjamin Emmanuel -->
+      <div class="team-card">
+        <div class="team-card__image">
+          <img
+            src="images/photo_2026-06-25_23-17-42.jpg"
+            alt="Benjamin Emmanuel — Founder and COO of Rirakkusu Japan"
+            style="object-position: 50% 0%;"
+          />
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">Founder &amp; COO</p>
+          <h3 class="team-card__name">Benjamin Emmanuel</h3>
+          <div class="team-card__divider" aria-hidden="true"></div>
+          <p class="team-card__bio">The vision behind Rirakkusu Japan. Benjamin built this company on a single belief: that busy people deserve both peace and productivity — and shouldn't have to choose between them.</p>
+        </div>
+      </div>
+      <!-- Joseph Emmanuel -->
+      <div class="team-card">
+        <div class="team-card__image">
+          <img
+            src="images/photo_2026-06-26_05-27-01.jpg"
+            alt="Joseph Emmanuel — Co-Founder and CTO of Rirakkusu Japan"
+            style="object-position: 50% 0%;"
+          />
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">Co-Founder &amp; CTO</p>
+          <h3 class="team-card__name">Joseph Emmanuel</h3>
+          <div class="team-card__divider" aria-hidden="true"></div>
+          <p class="team-card__bio">Joseph builds the systems and infrastructure that make Rirakkusu Japan seamless — from backend operations to the digital experience that connects clients with the team.</p>
+        </div>
+      </div>
+      <!-- Bard Tog -->
+      <div class="team-card">
+        <div class="team-card__image">
+          <img
+            src="images/photo_2026-07-08_12-34-01.jpg"
+            alt="Bard Tog — Director of Media and Publications at Rirakkusu Japan"
+            style="object-position: 50% 0%;"
+          />
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">Director of Media &amp; Publications</p>
+          <h3 class="team-card__name">Bard Tog</h3>
+          <div class="team-card__divider" aria-hidden="true"></div>
+          <p class="team-card__bio">Bard shapes how the world sees Rirakkusu Japan — crafting the visual language, storytelling, and brand voice that makes this company feel as warm as it truly is.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Coming soon row -->
+    <div class="team__grid" style="margin-top:8px;">
+      <!-- HP -->
+      <div class="team-card">
+        <div class="team-card__image">
+          <div class="team-card__placeholder">
+            <div class="team-card__placeholder-inner">
+              <span class="team-card__placeholder-initials">HP</span>
+            </div>
+            <div class="team-card__placeholder-badge">
+              <span class="team-card__placeholder-badge-text">Joining Soon</span>
+            </div>
+          </div>
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">Director of Hospitality &amp; Planning</p>
+          <h3 class="team-card__name">Coming Soon</h3>
+          <div class="team-card__divider" aria-hidden="true"></div>
+          <p class="team-card__bio">Leading the Relax Picnic division — ensuring every curated outdoor experience is executed with precision, warmth, and zero compromise on quality.</p>
+        </div>
+      </div>
+      <!-- CE -->
+      <div class="team-card">
+        <div class="team-card__image">
+          <div class="team-card__placeholder">
+            <div class="team-card__placeholder-inner">
+              <span class="team-card__placeholder-initials">CE</span>
+            </div>
+            <div class="team-card__placeholder-badge">
+              <span class="team-card__placeholder-badge-text">Joining Soon</span>
+            </div>
+          </div>
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">Client Experience Lead</p>
+          <h3 class="team-card__name">Coming Soon</h3>
+          <div class="team-card__divider" aria-hidden="true"></div>
+          <p class="team-card__bio">The first voice you hear and the last smile you see. This role ensures every client journey with Rirakkusu Japan exceeds expectation from first contact to final delivery.</p>
+        </div>
+      </div>
+      <!-- TO -->
+      <div class="team-card">
+        <div class="team-card__image">
+          <div class="team-card__placeholder">
+            <div class="team-card__placeholder-inner">
+              <span class="team-card__placeholder-initials">TO</span>
+            </div>
+            <div class="team-card__placeholder-badge">
+              <span class="team-card__placeholder-badge-text">Joining Soon</span>
+            </div>
+          </div>
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">Task Operations Manager</p>
+          <h3 class="team-card__name">Coming Soon</h3>
+          <div class="team-card__divider" aria-hidden="true"></div>
+          <p class="team-card__bio">Overseeing the Relax Tasks division — managing our dedicated assistant team to deliver flawless operational support for professionals across Tokyo and beyond.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Referral Banner -->
+    <div class="referral">
+      <div class="referral__content">
+        <p class="referral__label">Referral Programme</p>
+        <h3 class="referral__heading">Know Someone Who Needs This?</h3>
+        <p class="referral__text">Refer a paying client to Rirakkusu Japan and get <strong>20% off</strong> your next service. Because the best things are better when shared — and your peace of mind shouldn't be kept a secret.</p>
+      </div>
+      <a href="#contact" class="referral__btn">Refer a Friend</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT SECTION
+     ============================================================ -->
+<section class="contact" id="contact" aria-label="Contact — Your First Step Is Simple">
+  <div class="contact__inner">
+    <div class="contact__header">
+      <p class="label">Ready to Breathe Again?</p>
+      <h2 class="contact__heading">Your First Step Is Simple.</h2>
+      <p class="contact__sub">Tell us what you need — we'll build the rest around you.</p>
+    </div>
+    <div class="contact__body">
+      <!-- Left col -->
+      <div class="contact__links">
+        <a href="#" class="contact__link-item">
+          <span class="contact__link-item-dot">◆</span>
+          <em>Book a Picnic</em>
+        </a>
+        <a href="#" class="contact__link-item">
+          <span class="contact__link-item-dot">◆</span>
+          <em>Delegate a Task</em>
+        </a>
+        <a href="#" class="contact__link-item">
+          <span class="contact__link-item-dot">◆</span>
+          <em>Make a Wish</em>
+        </a>
+        <div class="contact__info">
+          <div class="contact__info-item">
+            <span class="contact__info-icon">✉</span>
+            <div>
+              <p class="contact__info-label">Email</p>
+              <p class="contact__info-value"><a href="mailto:info@rirakkusujapan.com">info@rirakkusujapan.com</a></p>
+            </div>
+          </div>
+          <div class="contact__info-item">
+            <span class="contact__info-icon">◎</span>
+            <div>
+              <p class="contact__info-label">Location</p>
+              <p class="contact__info-value">Tokyo, Japan</p>
+            </div>
+          </div>
+          <div class="contact__info-item">
+            <span class="contact__info-icon">📷</span>
+            <div>
+              <p class="contact__info-label">Instagram</p>
+              <p class="contact__info-value"><a href="https://www.instagram.com/relaxjapan_tokyo/" target="_blank" rel="noopener noreferrer">@relaxjapan_tokyo</a></p>
+            </div>
+          </div>
+          <div class="contact__info-item">
+            <span class="contact__info-icon">◷</span>
+            <div>
+              <p class="contact__info-label">Hours</p>
+              <p class="contact__info-value">Mon – Sat · 9:00 – 20:00 JST</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact__line-note">
+          <p class="contact__line-note-text">For quick enquiries, add our LINE ID.<br>Request: <strong>RJT</strong></p>
+        </div>
+      </div>
+      <!-- Right col — Form -->
+      <form
+        class="contact__form-wrap"
+        id="contact-form"
+        action="https://formspree.io/f/mykapzvj"
+        method="POST"
+      >
+        <input type="hidden" name="_subject" value="New enquiry from rirakkusujapan.com" />
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
+        <div class="form__row">
+          <div>
+            <label class="form__label" for="name">Your Name</label>
+            <input class="form__input" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+          </div>
+          <div>
+            <label class="form__label" for="email">Email Address</label>
+            <input class="form__input" id="email" name="email" type="email" placeholder="hello@mail.com" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="form__field">
+          <label class="form__label" for="service">Service Inquiry</label>
+          <div class="form__select-wrap">
+            <select class="form__select" id="service" name="service" required>
+              <option value="" disabled selected></option>
+              <option value="picnic">Relax Picnic</option>
+              <option value="tasks">Relax Tasks</option>
+              <option value="wish">Make a Wish</option>
+              <option value="concierge">Personal Concierge</option>
+              <option value="corporate">Corporate Wellness</option>
+            </select>
+          </div>
+        </div>
+        <div class="form__row">
+          <div>
+            <label class="form__label" for="date">Preferred Date</label>
+            <input class="form__input" id="date" name="date" type="date" />
+          </div>
+          <div>
+            <label class="form__label" for="guests">Number of Guests</label>
+            <div class="form__select-wrap">
+              <select class="form__select" id="guests" name="guests">
+                <option value="" disabled selected></option>
+                <option>1–2</option>
+                <option>3–5</option>
+                <option>6–10</option>
+                <option>11–20</option>
+                <option>20+</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form__field">
+          <label class="form__label" for="message">Your Message</label>
+          <textarea class="form__textarea" id="message" name="message" placeholder="Tell us what you need — we'll build the rest around you…" required></textarea>
+        </div>
+        <p class="form__privacy">Your information is kept completely private and will never be shared.</p>
+        <button type="submit" class="form__submit">Send Enquiry</button>
+        <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" aria-label="Site footer">
+  <div class="footer__inner">
+    <div class="footer__top">
+      <!-- Brand col -->
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <img class="footer__logo-img" src="images/f65a0da8d98410db9da9e716848f143ee6c8fd04.png" alt="Rirakkusu Japan" />
+        </div>
+        <p class="footer__tagline">We build experiences and systems around you so you can finally breathe again. Your time. Your peace. Your life outside the office.</p>
+        <p class="footer__location">Tokyo, Japan</p>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/relaxjapan_tokyo/" target="_blank" rel="noopener noreferrer" class="footer__social-link">IG</a>
+          <a href="#" class="footer__social-link">LINE</a>
+          <a href="mailto:info@rirakkusujapan.com" class="footer__social-link">EMAIL</a>
+        </div>
+      </div>
+      <!-- Services col -->
+      <nav aria-label="Footer Services">
+        <p class="footer__col-title">Services</p>
+        <ul class="footer__col-list">
+          <li><a href="#services" class="footer__col-link">Relax Picnic</a></li>
+          <li><a href="#services" class="footer__col-link">Relax Tasks</a></li>
+          <li><a href="#services" class="footer__col-link">Meet &amp; Greet</a></li>
+          <li><a href="#services" class="footer__col-link">Make a Wish</a></li>
+          <li><a href="#services" class="footer__col-link">Corporate Wellness</a></li>
+        </ul>
+      </nav>
+      <!-- Company col -->
+      <nav aria-label="Footer Company">
+        <p class="footer__col-title">Company</p>
+        <ul class="footer__col-list">
+          <li><a href="#about" class="footer__col-link">About Us</a></li>
+          <li><a href="#company" class="footer__col-link">Company Overview</a></li>
+          <li><a href="#team" class="footer__col-link">The Team</a></li>
+          <li><a href="#gallery" class="footer__col-link">Gallery</a></li>
+          <li><a href="#team" class="footer__col-link">Referral Programme</a></li>
+          <li><a href="#how" class="footer__col-link">Community Picnics</a></li>
+        </ul>
+      </nav>
+      <!-- Locations col -->
+      <div>
+        <p class="footer__col-title">Locations</p>
+        <ul class="footer__col-list">
+          <li><span class="footer__col-link" style="cursor:default;">Tokyo</span></li>
+          <li><span class="footer__col-link" style="cursor:default;">Kyoto</span></li>
+          <li><span class="footer__col-link" style="cursor:default;">Osaka</span></li>
+          <li><span class="footer__col-link" style="cursor:default;">Nara</span></li>
+          <li><span class="footer__col-link" style="cursor:default;">Yoyogi Park</span></li>
+        </ul>
+        <div class="footer__contact-links">
+          <a href="mailto:info@rirakkusujapan.com" class="footer__contact-link">info@rirakkusujapan.com</a>
+          <a href="https://www.instagram.com/relaxjapan_tokyo/" target="_blank" rel="noopener noreferrer" class="footer__contact-link">@relaxjapan_tokyo</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2026 Rirakkusu Japan. All rights reserved.</p>
+      <p class="footer__motto">Reclaim your peace &amp; your time.</p>
+      <div class="footer__legal">
+        <a href="#" class="footer__legal-link">Privacy Policy</a>
+        <a href="#" class="footer__legal-link">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// HAMBURGER MENU TOGGLE
+// ============================================================
+(function () {
+  var btn = document.getElementById('hamburger-btn');
+  var menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function () {
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    menu.setAttribute('aria-hidden', String(expanded));
+    menu.classList.toggle('is-open', !expanded);
+  });
+  // Close on nav link click
+  var links = menu.querySelectorAll('a');
+  links.forEach(function (link) {
+    link.addEventListener('click', function () {
+      btn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('is-open');
+    });
+  });
+})();
+
+// ============================================================
+// GALLERY CAROUSEL
+// ============================================================
+(function () {
+  var track = document.getElementById('gallery-track');
+  var prev = document.getElementById('gallery-prev');
+  var next = document.getElementById('gallery-next');
+  if (!track || !prev || !next) return;
+  var currentIndex = 0;
+
+  /* Measure real slide width + gap, and how many slides fit — so it works
+     on every screen size (mobile shows 1, desktop several) and reaches them all. */
+  function metrics() {
+    var slides = track.children;
+    if (!slides.length) return { sw: 0, max: 0 };
+    var cs = getComputedStyle(track);
+    var gap = parseFloat(cs.columnGap || cs.gap) || 0;
+    var sw = slides[0].getBoundingClientRect().width + gap;
+    var wrapW = track.parentElement ? track.parentElement.getBoundingClientRect().width : sw;
+    var visible = Math.max(1, Math.round(wrapW / sw));
+    return { sw: sw, max: Math.max(0, slides.length - visible) };
+  }
+  function update() {
+    var m = metrics();
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex > m.max) currentIndex = m.max;
+    track.style.transform = 'translateX(-' + (currentIndex * m.sw) + 'px)';
+  }
+  next.addEventListener('click', function () { currentIndex += 1; update(); });
+  prev.addEventListener('click', function () { currentIndex -= 1; update(); });
+  window.addEventListener('resize', function () { update(); }, { passive: true });
+
+  /* Swipe (touch + mouse drag) */
+  var startX = 0, dragging = false;
+  track.addEventListener('mousedown', function (e) { startX = e.clientX; dragging = true; });
+  document.addEventListener('mouseup', function (e) {
+    if (!dragging) return; dragging = false;
+    var diff = startX - e.clientX;
+    if (Math.abs(diff) > 40) { currentIndex += diff > 0 ? 1 : -1; update(); }
+  });
+  track.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    var diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { currentIndex += diff > 0 ? 1 : -1; update(); }
+  }, { passive: true });
+
+  update();
+})();
+
+// ============================================================
+// CONTACT FORM — Formspree (AJAX submit + inline status)
+// ============================================================
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var status = document.getElementById('form-status');
+  var btn = form.querySelector('.form__submit');
+
+  function field(n) {
+    var el = form.elements[n];
+    return el ? String(el.value).trim() : '';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = field('name');
+    var email = field('email');
+    var service = field('service');
+    var message = field('message');
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!name || !emailOk || !service || !message) {
+      status.textContent = 'Please add your name, a valid email, a service, and a message.';
+      status.className = 'form__status form__status--error';
+      return;
+    }
+
+    var original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.textContent = '';
+    status.className = 'form__status';
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    }).then(function (res) {
+      if (res.ok) {
+        status.textContent = 'Thank you, ' + name + '. We’ve received your enquiry and will reply within one business day.';
+        status.className = 'form__status form__status--ok';
+        form.reset();
+      } else {
+        return res.json().then(function (d) {
+          throw new Error((d && d.errors && d.errors[0] && d.errors[0].message) || 'Bad response');
+        });
+      }
+    }).catch(function () {
+      status.textContent = 'Sorry, something went wrong sending your message. Please email info@rirakkusujapan.com directly.';
+      status.className = 'form__status form__status--error';
+    }).finally(function () {
+      btn.disabled = false;
+      btn.textContent = original;
+    });
+  });
+})();
+</script>
+<script>
+/* ============================================================
+   LANGUAGE SWITCH  —  English / 日本語  (hand-written JA)
+   ============================================================ */
+(function () {
+  "use strict";
+
+  /* Leaf elements matched by their exact English text */
+  var TXT = {
+    /* nav */
+    "About":"会社情報","Services":"サービス","Team":"チーム","Gallery":"ギャラリー","Contact":"お問い合わせ","Book Now":"今すぐ予約",
+    /* hero */
+    "Rirakkusu Japan":"リラックス・ジャパン",
+    "A sanctuary for the busy professional — built for modern Japan.":"多忙なプロフェッショナルのための聖域 — 現代の日本のために。",
+    "Book a Picnic Experience":"ピクニックを予約する","Delegate Your Tasks":"タスクを任せる","Scroll":"スクロール",
+    /* eyebrows / labels */
+    "The Problem":"課題","Our Story":"私たちの物語","Two Problems. One Solution. One Brand.":"二つの課題。一つの解決策。一つのブランド。",
+    "How We Do It":"私たちのやり方","Moments Captured":"切り取った瞬間","Guest Voices":"お客様の声",
+    "The People Behind It":"支える人々","Referral Programme":"紹介プログラム","Ready to Breathe Again?":"もう一度、深呼吸しませんか？",
+    /* karoshi */
+    "Death from overwork isn't just a statistic in Japan. It's a culture. Long hours, empty weekends, and no time to simply breathe have become the norm — and they're costing people their health, their joy, and their lives.":"過労死は、日本では単なる統計ではありません。それは文化です。長時間労働、休みのない週末、ただ息をつく時間さえない — それが当たり前になり、人々の健康と喜び、そして命を奪っています。",
+    "You deserve better than that.":"あなたは、もっと良い毎日に値します。",
+    "We built Rirakkusu Japan because we believe your time is sacred — and your peace is non-negotiable.":"私たちがリラックス・ジャパンを立ち上げたのは、あなたの時間はかけがえのないものであり、心の平穏は決して妥協できないと信じているからです。",
+    "Extreme Stress":"極度のストレス","No Way to Decompress":"心を解きほぐす手段がない","Operational Overwhelm":"業務に追われる日々","No Holistic Support":"包括的なサポートの不在",
+    "Long working hours with little to no recovery time — the body and mind pay the price over time.":"ほとんど回復の時間もない長時間労働 — 心と体は、やがてその代償を払うことになります。",
+    "A lack of accessible, curated relaxation experiences means people never truly switch off from the work cycle.":"気軽に利用できる上質なリラクゼーション体験がないため、人々は仕事のサイクルから本当に解放されることがありません。",
+    "Buried in minor but time-consuming tasks that pull professionals away from what truly matters.":"些細だが時間のかかる雑務に埋もれ、本当に大切なことから遠ざけられてしまいます。",
+    "No service offered both mental wellness relief and practical task delegation under one brand — until now.":"心のケアと実務の委託を一つのブランドで提供するサービスは、これまで存在しませんでした — 今までは。",
+    /* about */
+    "Rirakkusu Japan is a dual-service company built on one mission: give people their time, energy, and peace of mind back.":"リラックス・ジャパンは、一つの使命のもとに生まれたデュアルサービス企業です。それは、人々に時間・活力・心の平穏を取り戻すこと。",
+    "Experiences":"実績","Locations":"拠点","Satisfaction":"満足度","Est.":"設立",
+    /* services */
+    "We build experiences and systems around you so you can finally breathe again. Together — you get your time back.":"あなたを中心に体験と仕組みを築き、ようやく深呼吸できる毎日へ。共に、あなたの時間を取り戻します。",
+    "Relax Picnic":"リラックス・ピクニック","Relax Tasks":"リラックス・タスク","Make a Wish":"ウィッシュ（願いごと）","Meet & Greet":"お出迎えサービス",
+    "You Show Up. We Handle Everything Else.":"あなたは来るだけ。あとはすべて私たちが。",
+    "Delegate the Tasks Draining Your Day.":"あなたの一日を奪う雑務を、お任せください。",
+    "Nothing Is Too Big. Nothing Is Too Small.":"大きすぎることも、小さすぎることもありません。",
+    "Curated outdoor experiences built around you — whether it's a date, a family day, a birthday, or a corporate wellness event. Nothing generic. Ever.":"デート、家族の一日、誕生日、企業のウェルネスイベント — あなたのために設える屋外体験。ありきたりなものは、一切ありません。",
+    "Inbox management, scheduling, research, errands — handled by a dedicated assistant, tailored to how you work. If you can think of it, we can get it done.":"メール管理、スケジュール調整、リサーチ、お使い — あなたの働き方に合わせた専属アシスタントが対応します。思いつくことなら、何でもお任せください。",
+    "What if you could ask for anything and someone actually made it happen? Plan a surprise team dinner. Source a gift. Help me relocate. Organise my week.":"もし、どんなお願いでも誰かが本当に叶えてくれるとしたら？サプライズのチームディナー、贈り物の手配、引っ越しのサポート、一週間の段取りまで。",
+    "Custom menu curation":"オリジナルメニューの企画","Premium tableware & styling":"上質な食器とスタイリング","Seasonal floral arrangements":"季節のフラワーアレンジメント","Date, family, birthday & corporate":"デート・家族・誕生日・企業向け","Photography add-on available":"写真撮影オプションあり",
+    "Inbox & email management":"受信箱・メール管理","Calendar & scheduling":"カレンダー・スケジュール管理","Research & reporting":"リサーチ・レポート作成","Errands & coordination":"お使い・各種調整","Ongoing retainer options":"継続契約プランあり",
+    "Surprise event planning":"サプライズイベントの企画","Gift sourcing & delivery":"贈り物の手配・配送","Relocation assistance":"引っ越しサポート","Bespoke personal concierge":"オーダーメイドの専属コンシェルジュ","Completely tailored to you":"あなたに完全に合わせて",
+    /* how */
+    "We don't do generic. Every experience, every task, every event we touch is curated specifically around the person or company we're serving. Here's how:":"ありきたりなことはしません。私たちが手がける体験・タスク・イベントは、お一人おひとり、一社一社のために設えます。その方法をご紹介します。",
+    "We Show Up So You Can Switch Off":"あなたがオフにできるよう、私たちが動きます","We Take the Small Things Off Your Plate":"小さな負担を、あなたの肩から下ろします","We Build Around You — Not the Other Way Around":"私たちがあなたに合わせます — その逆ではなく","We Start With Community":"まずは、コミュニティから","We Grow With You":"あなたと共に成長します",
+    "From the blankets to the food to the decor — our picnic team handles every detail before you arrive. You bring yourself. We bring everything else.":"ブランケットから料理、装飾まで — ピクニックチームが到着前にすべてを整えます。あなたは身一つでお越しください。あとはすべて私たちが。",
+    "Emails. Scheduling. Research. Errands. Our task assistants are trained, dedicated, and briefed on your workflow — not a template.":"メール、スケジュール、リサーチ、お使い。私たちのタスクアシスタントは訓練を受けた専属担当で、テンプレートではなく、あなたの仕事の流れを理解しています。",
+    "Couples, families, corporates, solo professionals — every experience is designed for who you are, not who we assume you to be.":"カップル、ご家族、企業、お一人のプロフェッショナル — すべての体験は、想定ではなく、ありのままのあなたのために設計します。",
+    "Before we ask for your business, we invite you in. Free community picnics, open doors, real conversations. Feel Rirakkusu Japan before you ever book it.":"ご依頼をいただく前に、まずはお招きします。無料のコミュニティピクニック、開かれた扉、本音の会話。予約の前に、リラックス・ジャパンを感じてください。",
+    "Refer a client. Build a partnership. Join a retainer. We're not a one-time service — we're a long-term relationship with your peace of mind.":"お客様をご紹介し、パートナーシップを築き、継続契約へ。私たちは一度きりのサービスではなく、あなたの心の平穏に寄り添う長いお付き合いです。",
+    "Community Picnic":"コミュニティピクニック","You're Invited.":"あなたをご招待します。",
+    "Last Saturday of the Month":"毎月最終土曜日","Yoyogi Park, Tokyo":"代々木公園（東京）","12PM – 4PM":"12:00 – 16:00","FREE Entry":"参加無料","RSVP via LINE · RJT":"LINEで参加表明 · RJT",
+    /* gallery */
+    "Cherry Blossom Season":"桜の季節","Yoyogi Picnic":"代々木ピクニック","Kinkaku-ji Serenity":"金閣寺の静けさ","Quiet Moments":"静かなひととき","Kimono Experience":"着物体験","City Walks":"街さんぽ","Scroll to explore":"スクロールしてご覧ください",
+    /* team */
+    "Every person at Rirakkusu Japan was chosen because they believe in the mission: give people their time, energy, and peace of mind back.":"リラックス・ジャパンのメンバーは皆、『人々に時間・活力・心の平穏を取り戻す』という使命を信じて集まりました。",
+    "Founder & COO":"創業者 兼 COO","Co-Founder & CTO":"共同創業者 兼 CTO","Director of Media & Publications":"メディア・広報ディレクター","Director of Hospitality & Planning":"ホスピタリティ・企画ディレクター","Client Experience Lead":"カスタマーエクスペリエンス・リード","Task Operations Manager":"タスクオペレーション・マネージャー",
+    "The vision behind Rirakkusu Japan. Benjamin built this company on a single belief: that busy people deserve both peace and productivity — and shouldn't have to choose between them.":"リラックス・ジャパンのビジョンを描く人物。多忙な人こそ平穏と生産性の両方に値し、どちらかを選ぶ必要はない — その一つの信念から、ベンジャミンはこの会社を築きました。",
+    "Joseph builds the systems and infrastructure that make Rirakkusu Japan seamless — from backend operations to the digital experience that connects clients with the team.":"ジョセフは、リラックス・ジャパンをなめらかに動かす仕組みと基盤を築いています — 裏側の運用から、お客様とチームをつなぐデジタル体験まで。",
+    "Bard shapes how the world sees Rirakkusu Japan — crafting the visual language, storytelling, and brand voice that makes this company feel as warm as it truly is.":"バードは、世界がリラックス・ジャパンをどう見るかを形づくります — ビジュアル、物語、ブランドの声を通じて、この会社の本当の温かさを伝えます。",
+    "Coming Soon":"近日参加","Joining Soon":"近日参加",
+    "Leading the Relax Picnic division — ensuring every curated outdoor experience is executed with precision, warmth, and zero compromise on quality.":"リラックス・ピクニック部門を率い、すべての屋外体験が正確さと温かさ、そして品質への妥協なく実現されるよう導きます。",
+    "The first voice you hear and the last smile you see. This role ensures every client journey with Rirakkusu Japan exceeds expectation from first contact to final delivery.":"最初に聞こえる声であり、最後に見える笑顔。最初のご連絡から最後のお届けまで、すべての体験が期待を超えるよう努めます。",
+    "Overseeing the Relax Tasks division — managing our dedicated assistant team to deliver flawless operational support for professionals across Tokyo and beyond.":"リラックス・タスク部門を統括し、専属アシスタントチームを率いて、東京とその先のプロフェッショナルに完璧な業務サポートをお届けします。",
+    /* referral */
+    "Know Someone Who Needs This?":"これを必要としている方が、お近くにいませんか？","Refer a Friend":"友だちを紹介する",
+    /* contact */
+    "Your First Step Is Simple.":"最初の一歩は、とてもシンプルです。","Tell us what you need — we'll build the rest around you.":"必要なことをお聞かせください — あとは私たちがあなたを中心に整えます。",
+    "Email":"メール","Location":"所在地","Instagram":"インスタグラム","Hours":"営業時間","Tokyo, Japan":"東京、日本","Mon – Sat · 9:00 – 20:00 JST":"月〜土 · 9:00 – 20:00（JST）",
+    "Your Name":"お名前","Email Address":"メールアドレス","Service Inquiry":"ご希望のサービス","Preferred Date":"ご希望日","Number of Guests":"ご利用人数","Your Message":"メッセージ","Select a service":"サービスを選択",
+    "Personal Concierge":"パーソナルコンシェルジュ","Corporate Wellness":"法人ウェルネス","Referral":"ご紹介",
+    "Your information is kept completely private and will never be shared.":"お客様の情報は完全に非公開で管理され、第三者に共有されることは一切ありません。","Send Enquiry":"問い合わせを送信",
+    /* footer */
+    "We build experiences and systems around you so you can finally breathe again. Your time. Your peace. Your life outside the office.":"あなたを中心に体験と仕組みを築き、ようやく深呼吸できる毎日へ。あなたの時間を。あなたの平穏を。オフィスの外にある人生を。",
+    "Company":"会社情報","About Us":"私たちについて","The Team":"チーム紹介","Community Picnics":"コミュニティピクニック",
+    "Tokyo":"東京","Kyoto":"京都","Osaka":"大阪","Nara":"奈良","Yoyogi Park":"代々木公園","EMAIL":"メール",
+    "Reclaim your peace & your time.":"あなたの平穏と時間を取り戻す。","Privacy Policy":"プライバシーポリシー","Terms of Service":"利用規約"
+  };
+
+  /* Quote elements set by selector (avoids quote-escaping) */
+  var TBY = [
+    [".karoshi__quote-text", ["「リラックス・ジャパンが存在する理由はただ一つ — あなたの人生を取り戻すこと。ほんの一時間ではなく、そのすべてを。」"]],
+    [".about__quote", ["「私たちはただピクニックを企画するのでも、ただタスクを管理するのでもありません。あなたを中心に体験と仕組みを築き、ようやく深呼吸できる毎日をお届けします。」"]],
+    [".testimonial__quote", [
+      "「二年間、本当の意味で休めていませんでした。リラックス・ジャパンは、一週間分の休息に感じられる午後を取り戻してくれました。」",
+      "「一週間、受信箱をすべて任せました。涙が出ました — 本当に、心が軽くなって。リラックス・タスクは、あってもなくてもいいものではなく、なくてはならないものです。」",
+      "「お出迎えのおかげで、数時間で日本が我が家のように感じられました。導かれ、気にかけてもらい、ようやく『今ここ』にいられました。」"
+    ]],
+    [".testimonial__location", ["東京、日本","シンガポール","ナイジェリア・ラゴス"]]
+  ];
+
+  /* Mixed-content elements set by innerHTML */
+  var HMAP = [
+    [".hero__title", ["あなたの<em>平穏</em><br>と<em>時間</em>を取り戻す"]],
+    [".hero__body", ["日本は懸命に働いています。私たちは知っています。<br>毎日、目にしています。リラックス・ジャパンは、すべてを<br>捧げる人のために — 何かを取り戻すために生まれました。"]],
+    [".karoshi__heading", ["日本には課題があります。<br>それが「過労（Karoshi）」です。"]],
+    [".about__heading", ["私たちは見ました。<br>私たちは感じました。<br><em>だから、行動を起こしました。</em>"]],
+    [".about__p", [null, "<strong>リラックス・ピクニック</strong>は心と体の疲れに寄り添います。<strong>リラックス・タスク</strong>は業務の負担を引き受けます。二つで、使命はシンプルになります。"]],
+    [".services__heading", ["私たちはただピクニックを企画するだけではありません。<br><em>ただタスクを管理するだけでもありません。</em>"]],
+    [".how__heading", ["どのように実現するのか —<br><em>あなたのために、あなたを中心に</em>"]],
+    [".how__picnic-note", ["ありのままのあなたで来て、来たときより軽やかに。<br>これが、リラックス・ジャパンの感覚です。"]],
+    [".gallery__heading", ["リラックス・ジャパンの<em>世界</em>をひと目"]],
+    [".testimonials__heading", ["お客様は訪れ、<em>再び呼吸を取り戻しました。</em>"]],
+    [".team__heading", ["使命を胸に集まった<em>チーム</em>"]],
+    [".referral__heading", ["これを必要としている方が、<em>お近くにいませんか？</em>"]],
+    [".referral__text", ["リラックス・ジャパンに有料のお客様をご紹介いただくと、次回のサービスが<strong>20%オフ</strong>になります。良いものは分かち合うことでさらに輝きます — あなたの心の平穏も、秘密にしておく必要はありません。"]],
+    [".contact__line-note-text", ["お急ぎのお問い合わせは、LINE IDを追加してください。<br>リクエスト: <strong>RJT</strong>"]],
+    [".service-block__link", [
+      'ピクニックを予約する <span class="service-block__link-arrow">→</span>',
+      'タスクを任せる <span class="service-block__link-arrow">→</span>',
+      'ウィッシュを叶える <span class="service-block__link-arrow">→</span>'
+    ]],
+    [".contact__link-item", [
+      '<span class="contact__link-item-dot">◆</span><em>ピクニックを予約</em>',
+      '<span class="contact__link-item-dot">◆</span><em>タスクを依頼</em>',
+      '<span class="contact__link-item-dot">◆</span><em>ウィッシュを叶える</em>'
+    ]]
+  ];
+
+  /* contact-form placeholders (input id -> JA) */
+  var PH = {
+    "name":"お名前",
+    "email":"メールアドレス",
+    "guests":"例：2",
+    "message":"必要なことをお聞かせください — あとは私たちが整えます…"
+  };
+  var touched = [];
+  function setText(el, v){ touched.push({el:el, v:el.textContent, h:false}); el.textContent = v; }
+  function setHTML(el, v){ touched.push({el:el, v:el.innerHTML, h:true}); el.innerHTML = v; }
+  function setPH(el, v){ touched.push({el:el, v:el.placeholder, ph:true}); el.placeholder = v; }
+
+  function translate(){
+    /* leaf text */
+    var nodes = document.querySelectorAll(
+      "header.navbar a, header.navbar button, main h1, main h2, main h3, main h4, main p, main span, main a, main li, main label, main option, main figcaption, footer a, footer p, footer span, footer h4"
+    );
+    nodes.forEach(function(el){
+      if (el.children.length > 0) return;          /* leaf only — keep structure intact */
+      var t = el.textContent.trim();
+      if (Object.prototype.hasOwnProperty.call(TXT, t)) setText(el, TXT[t]);
+    });
+    /* quotes & by-selector text */
+    TBY.forEach(function(m){
+      var els = document.querySelectorAll(m[0]);
+      m[1].forEach(function(ja, i){ if (ja != null && els[i]) setText(els[i], ja); });
+    });
+    /* mixed content */
+    HMAP.forEach(function(m){
+      var els = document.querySelectorAll(m[0]);
+      m[1].forEach(function(ja, i){ if (ja != null && els[i]) setHTML(els[i], ja); });
+    });
+    /* placeholders */
+    Object.keys(PH).forEach(function(id){ var e = document.getElementById(id); if (e) setPH(e, PH[id]); });
+  }
+  function restore(){ touched.forEach(function(t){ if(t.ph) t.el.placeholder = t.v; else if(t.h) t.el.innerHTML = t.v; else t.el.textContent = t.v; }); touched = []; }
+
+  function applyLang(lang){
+    if (lang === "ja"){ if (!touched.length) translate(); document.documentElement.lang = "ja"; }
+    else { restore(); document.documentElement.lang = "en"; }
+    document.querySelectorAll(".lang-btn").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-lang") === lang); });
+    try { localStorage.setItem("rj_lang", lang); } catch(e){}
+  }
+
+  document.querySelectorAll(".lang-btn").forEach(function(b){
+    b.addEventListener("click", function(){ applyLang(b.getAttribute("data-lang")); });
+  });
+
+  try { if (localStorage.getItem("rj_lang") === "ja") applyLang("ja"); } catch(e){}
+})();
+</script>
+</body>
+</html>

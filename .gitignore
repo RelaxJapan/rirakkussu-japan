@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+react-app/node_modules/
+
+# Build output
+dist/
+react-app/dist/
+
+# Large archive (not source)
+rirakkusujapan-site.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log

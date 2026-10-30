@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Service — Rirakkusu Japan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --cream:#faf8f3;--cream-mid:#f5f2eb;--cream-dark:#e8e5df;
+  --gold:#c9a84c;--gold-light:rgba(201,168,76,0.12);--gold-border:rgba(201,168,76,0.4);
+  --ink:#1c1c1c;--ink-mid:#333;--ink-light:#555;--muted:#666;--muted-light:#888;
+  --border:rgba(0,0,0,0.10);--white:#fff;--dark-bg:#0f0f0f;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Noto Sans JP',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-weight:400;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* Top bar */
+.topbar{position:sticky;top:0;z-index:50;height:68px;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.topbar__logo img{height:46px;width:auto}
+.topbar__back{font-family:var(--sans);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-mid);border:1px solid var(--ink);padding:9px 18px;transition:.2s}
+.topbar__back:hover{background:var(--ink);color:#fff}
+.topbar__right{display:flex;align-items:center;gap:16px}
+.lang-switch{display:flex;align-items:center;gap:6px}
+.lang-btn{font-family:var(--sans);font-size:12px;letter-spacing:1px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 2px;transition:color .2s}
+.lang-btn:hover{color:var(--ink)}
+.lang-btn.active{color:var(--gold);font-weight:600}
+.lang-sep{color:#bbb;font-size:12px}
+
+/* Shell */
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 90px}
+.eyebrow{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;text-align:center}
+.title{font-family:var(--serif);font-weight:400;font-size:48px;line-height:1.1;text-align:center;color:var(--ink);margin-bottom:10px}
+.title em{font-style:italic;color:var(--gold)}
+.sub{text-align:center;color:var(--muted);font-size:14px;font-weight:300;max-width:560px;margin:0 auto 8px}
+
+/* Stepper */
+.stepper{display:flex;justify-content:center;gap:8px;margin:34px 0 30px;flex-wrap:wrap}
+.stepper__item{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted-light)}
+.stepper__num{width:26px;height:26px;border-radius:50%;border:1px solid var(--cream-dark);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;color:var(--muted-light)}
+.stepper__item.active .stepper__num{background:var(--gold);border-color:var(--gold);color:#fff}
+.stepper__item.done .stepper__num{background:var(--ink);border-color:var(--ink);color:#fff}
+.stepper__item.active{color:var(--ink)}
+.stepper__sep{width:18px;height:1px;background:var(--cream-dark);align-self:center}
+
+/* Steps */
+.step{display:none;animation:fade .35s ease}
+.step.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.step__head{font-family:var(--serif);font-size:30px;font-weight:400;color:var(--ink);margin-bottom:6px}
+.step__hint{color:var(--muted);font-size:13px;font-weight:300;margin-bottom:24px}
+
+/* Choice cards (pillar / service) */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{border:1px solid var(--border);background:var(--white);padding:26px 24px;cursor:pointer;transition:.2s;text-align:left}
+.card:hover{border-color:var(--gold)}
+.card.selected{border-color:var(--gold);background:var(--gold-light)}
+.card h3{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:8px}
+.card p{font-size:12.5px;color:var(--muted);font-weight:300;line-height:1.7}
+.card .tick{float:right;color:var(--gold);font-size:16px;visibility:hidden}
+.card.selected .tick{visibility:visible}
+
+/* Option groups */
+.group{margin-bottom:26px}
+.group__label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-mid);font-weight:500;margin-bottom:12px;display:block}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.opt span{display:inline-block;border:1px solid var(--border);background:var(--white);padding:10px 16px;font-size:13px;color:var(--ink-light);font-weight:300;transition:.18s;cursor:pointer}
+.opt input:hover+span{border-color:var(--gold)}
+.opt input:checked+span{border-color:var(--gold);background:var(--gold-light);color:var(--ink);font-weight:400}
+
+/* Custom dropdown selector */
+.dd{position:relative;max-width:540px}
+.dd__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;font-family:var(--sans);font-size:14px;font-weight:300;color:var(--ink);background:var(--white);border:1px solid var(--border);padding:13px 16px;cursor:pointer;text-align:left;transition:.18s}
+.dd__btn:hover,.dd.open .dd__btn{border-color:var(--gold)}
+.dd__val{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dd__val--ph{color:var(--muted-light)}
+.dd__caret{color:var(--gold);font-size:11px;transition:transform .2s}
+.dd.open .dd__caret{transform:rotate(180deg)}
+.dd__panel{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 6px);list-style:none;margin:0;padding:6px;background:var(--white);border:1px solid var(--gold-border);box-shadow:0 14px 34px rgba(0,0,0,.12);max-height:264px;overflow:auto;display:none}
+.dd.open .dd__panel{display:block;animation:fade .18s ease}
+.dd__item{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13.5px;font-weight:300;color:var(--ink-light);cursor:pointer;transition:.12s}
+.dd__item:hover{background:var(--cream-mid)}
+.dd__check{visibility:hidden;color:var(--gold);font-size:12px;width:14px;flex-shrink:0}
+.dd__item.selected{color:var(--ink);background:var(--gold-light)}
+.dd__item.selected .dd__check{visibility:visible}
+.field input[type=text],.field input[type=number],.field input[type=date],.field input[type=email],.field input[type=tel],.field textarea,.field select{
+  font-family:var(--sans);font-size:14px;font-weight:300;color:var(--ink);background:var(--white);border:1px solid var(--border);padding:12px 14px;width:100%;outline:none;transition:.18s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold)}
+.field textarea{resize:vertical;min-height:84px}
+.field label{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.field{margin-bottom:18px}
+.req{color:var(--gold)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Review */
+.review{border:1px solid var(--border);background:var(--white);padding:24px;font-size:14px}
+.review h4{font-family:var(--serif);font-size:20px;font-weight:500;margin:0 0 12px;color:var(--ink)}
+.review .row{display:flex;gap:12px;padding:7px 0;border-bottom:1px dashed var(--cream-dark);font-weight:300;color:var(--ink-light)}
+.review .row:last-child{border-bottom:none}
+.review .k{min-width:150px;color:var(--muted);text-transform:uppercase;font-size:10px;letter-spacing:1px;padding-top:3px}
+.review .v{flex:1;color:var(--ink)}
+
+.note{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;background:var(--cream-mid);border:1px solid var(--border);padding:14px 16px;margin-top:18px}
+.privacy{font-size:11.5px;color:var(--muted-light);font-weight:300;margin-top:14px;line-height:1.7}
+
+/* Nav buttons */
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
+.btn{font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:15px 30px;cursor:pointer;border:1px solid var(--ink);transition:.2s;background:transparent;color:var(--ink)}
+.btn--ghost{color:var(--muted);border-color:var(--border)}
+.btn--ghost:hover{border-color:var(--ink);color:var(--ink)}
+.btn--gold{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.btn--gold:hover{background:#b8963e;border-color:#b8963e}
+.btn--dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn--dark:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:default}
+.err{color:#b3261e;font-size:12.5px;font-weight:300;margin-top:12px;min-height:1em}
+
+/* Success */
+.success{display:none;text-align:center;padding:40px 10px}
+.success.show{display:block;animation:fade .4s ease}
+.success .mark{width:64px;height:64px;border-radius:50%;background:var(--gold-light);border:1px solid var(--gold);color:var(--gold);font-size:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.success h2{font-family:var(--serif);font-size:34px;font-weight:400;margin-bottom:10px}
+.success p{color:var(--muted);font-weight:300;max-width:480px;margin:0 auto 22px;line-height:1.8}
+
+.hp{position:absolute;left:-9999px}
+
+@media(max-width:680px){
+  .title{font-size:34px}
+  .cards{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+  .stepper__sep{display:none}
+  .stepper__item span.lbl{display:none}
+  .wrap{padding:32px 18px 70px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html" class="topbar__logo" aria-label="Rirakkusu Japan home">
+    <img src="images/f65a0da8d98410db9da9e716848f143ee6c8fd04.png" alt="Rirakkusu Japan" />
+  </a>
+  <div class="topbar__right">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn active" data-lang="en">EN</button>
+      <span class="lang-sep">/</span>
+      <button type="button" class="lang-btn" data-lang="ja">日本語</button>
+    </div>
+    <a href="index.html" class="topbar__back">← Back to site</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="eyebrow">Reclaim Your Time</p>
+  <h1 class="title">Book a <em>Service</em></h1>
+  <p class="sub">Tell us what you need — choose a service, pick your options, and leave the rest to us.</p>
+
+  <div class="stepper" id="stepper">
+    <div class="stepper__item" data-s="0"><span class="stepper__num">1</span><span class="lbl">Service</span></div>
+    <div class="stepper__sep"></div>
+    <div class="stepper__item" data-s="1"><span class="stepper__num">2</span><span class="lbl">Type</span></div>
+    <div class="stepper__sep"></div>
+    <div class="stepper__item" data-s="2"><span class="stepper__num">3</span><span class="lbl">Details</span></div>
+    <div class="stepper__sep"></div>
+    <div class="stepper__item" data-s="3"><span class="stepper__num">4</span><span class="lbl">Your info</span></div>
+    <div class="stepper__sep"></div>
+    <div class="stepper__item" data-s="4"><span class="stepper__num">5</span><span class="lbl">Review</span></div>
+  </div>
+
+  <form id="bookingForm" action="https://formspree.io/f/mykapzvj" method="POST">
+    <!-- honeypot -->
+    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+    <input type="hidden" name="_subject" id="subjectField" value="New booking enquiry — Rirakkusu Japan" />
+    <input type="hidden" name="Service" id="f_service" />
+    <input type="hidden" name="Booking details" id="f_details" />
+
+    <!-- STEP 0: pillar -->
+    <section class="step active" data-step="0">
+      <h2 class="step__head">What can we help you with?</h2>
+      <p class="step__hint">Choose the kind of service you're looking for.</p>
+      <div class="cards" id="pillarCards"></div>
+      <div class="nav">
+        <span></span>
+        <button type="button" class="btn btn--gold" data-next disabled id="next0">Continue →</button>
+      </div>
+    </section>
+
+    <!-- STEP 1: service -->
+    <section class="step" data-step="1">
+      <h2 class="step__head" id="svcHead">Choose a service</h2>
+      <p class="step__hint">Pick the specific option that fits your plan.</p>
+      <div class="cards" id="serviceCards"></div>
+      <div class="nav">
+        <button type="button" class="btn btn--ghost" data-back>← Back</button>
+        <button type="button" class="btn btn--gold" data-next disabled id="next1">Continue →</button>
+      </div>
+    </section>
+
+    <!-- STEP 2: options -->
+    <section class="step" data-step="2">
+      <h2 class="step__head" id="optHead">Your preferences</h2>
+      <p class="step__hint">Select everything that applies — this helps us tailor it perfectly.</p>
+      <div id="optionsArea"></div>
+      <div class="nav">
+        <button type="button" class="btn btn--ghost" data-back>← Back</button>
+        <button type="button" class="btn btn--gold" data-next>Continue →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: personal info -->
+    <section class="step" data-step="3">
+      <h2 class="step__head">Your details</h2>
+      <p class="step__hint">So we can confirm your booking and follow up with you personally.</p>
+      <div class="field"><label>Full name <span class="req">*</span></label><input type="text" name="Full name" id="p_name" placeholder="Your full name" /></div>
+      <div class="grid2">
+        <div class="field"><label>Email <span class="req">*</span></label><input type="email" name="Email" id="p_email" placeholder="you@email.com" /></div>
+        <div class="field"><label>Phone / WhatsApp <span class="req">*</span></label><input type="tel" name="Phone" id="p_phone" placeholder="+81 ..." /></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Date of birth <span class="req">*</span></label><input type="date" name="Date of birth" id="p_dob" /></div>
+        <div class="field"><label>Nationality <span class="req">*</span></label><input type="text" name="Nationality" id="p_nat" placeholder="e.g. Japanese" /></div>
+      </div>
+      <div class="field"><label>Residential address <span class="req">*</span></label><textarea name="Residential address" id="p_addr" placeholder="Street, city, prefecture / country"></textarea></div>
+      <div class="grid2">
+        <div class="field"><label>Preferred date (optional)</label><input type="date" name="Preferred date" id="p_pref" /></div>
+        <div class="field"><label>Budget range (optional)</label><input type="text" name="Budget" id="p_budget" placeholder="e.g. ¥50,000" /></div>
+      </div>
+      <div class="field"><label>Anything else? — “Make a Wish” (optional)</label><textarea name="Notes" id="p_notes" placeholder="Tell us anything that would make this perfect…"></textarea></div>
+      <p class="privacy">🔒 We collect only what we need to serve you, maintain 100% client confidentiality, and never share your details. By submitting you agree to be contacted about your enquiry.</p>
+      <div class="nav">
+        <button type="button" class="btn btn--ghost" data-back>← Back</button>
+        <button type="button" class="btn btn--gold" data-next id="next3">Review →</button>
+      </div>
+      <p class="err" id="err3"></p>
+    </section>
+
+    <!-- STEP 4: review -->
+    <section class="step" data-step="4">
+      <h2 class="step__head">Review &amp; submit</h2>
+      <p class="step__hint">Please confirm everything looks right before sending.</p>
+      <div class="review" id="reviewBox"></div>
+      <div class="nav">
+        <button type="button" class="btn btn--ghost" data-back>← Back</button>
+        <button type="submit" class="btn btn--dark" id="submitBtn">Submit booking</button>
+      </div>
+      <p class="err" id="err4"></p>
+    </section>
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success" id="successBox">
+    <div class="mark">✓</div>
+    <h2>Thank you<span id="successName"></span>.</h2>
+    <p>We’ve received your booking enquiry and our team will reach out personally to confirm the details and next steps. Relax — we’ve got you covered.</p>
+    <a href="index.html" class="btn btn--gold">Back to home</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- i18n: English / 日本語 (synced with the homepage via localStorage) ---------- */
+  var LANG = 'en';
+  try { if (localStorage.getItem('rj_lang') === 'ja') LANG = 'ja'; } catch(e){}
+  var DICT = {
+    /* pillars */
+    'Event Planning & Management':'イベント企画・運営',
+    'Personal & Corporate Project Management':'個人・法人向けプロジェクトマネジメント',
+    'Picnics, anniversaries, dates, dinners, ceremonies & celebrations — curated around you.':'ピクニック、記念日、デート、ディナー、セレモニー、お祝い — あなたのために設えます。',
+    'Delegate time-consuming tasks, errands and projects to our dedicated team.':'時間のかかるタスク・お使い・プロジェクトを、専属チームにお任せください。',
+    /* services */
+    'Picnic':'ピクニック','Anniversary':'記念日','Dates':'デート','Dinners':'ディナー','Ceremonies':'セレモニー','Celebrations / Others':'お祝い・その他',
+    'Personal Task':'個人のタスク','Personal Assistant':'パーソナルアシスタント','Virtual Assistant':'バーチャルアシスタント',
+    'Fruits, vegan or BBQ picnics in nature, waterside, fields & curated spots.':'フルーツ・ヴィーガン・BBQのピクニックを、自然・水辺・芝生・特別な場所で。',
+    'Birthdays, achievements, weddings, business & celebrations of life.':'誕生日、達成のお祝い、結婚式、ビジネス、人生の節目に。',
+    'Romantic, official or special dates — picnics, festivals, halls & restaurants.':'ロマンチック・公式・特別なデート — ピクニック、お祭り、ホール、レストランで。',
+    'Work, family & special dinners at curated venues, restaurants or outdoors.':'仕事・家族・特別なディナーを、特別な会場・レストラン・屋外で。',
+    'Tell us about your ceremony and we’ll curate it end to end.':'セレモニーについてお聞かせください。最初から最後まで私たちが手がけます。',
+    'Anything else worth celebrating — bring us your imagination.':'その他お祝いしたいこと — あなたの想像をお聞かせください。',
+    'Errands, groceries, moving, child care, academics, clean-outs & more.':'お使い、買い物、引っ越し、育児、学習サポート、片付けなど。',
+    'A dedicated assistant to work with you on tasks and daily life.':'タスクや日々の暮らしに寄り添う、専属アシスタント。',
+    'A remote assistant to handle projects and daily tasks, billed per hour.':'プロジェクトや日々のタスクを担うリモートアシスタント（時間制）。',
+    /* group labels & keys */
+    'Picnic type':'ピクニックの種類','Venue / spot':'会場・場所','Venue / Spot':'会場・場所','Number of guests':'ご利用人数','Portion size':'量（ポーション）',
+    'How would you like to proceed?':'ご希望の進め方','Proceed':'進め方','Cuisine preference':'料理のご希望（中身）','Cuisine (Chūshin)':'料理（中身）','Drinks':'お飲み物',
+    'Other services needed':'その他必要なサービス','Other services':'その他サービス','Any dietary or religious restrictions?':'食事・宗教上の制限はありますか？','Dietary / religious notes':'食事・宗教上の注意',
+    'Occasion':'シーン','Venue':'会場','Date type':'デートの種類','Preferred restaurant rank':'ご希望のレストランランク','Restaurant rank':'レストランランク','Dinner type':'ディナーの種類',
+    'Describe the ceremony (type, venue, guests, requirements)':'セレモニーの内容（種類・会場・人数・ご要望）','Ceremony details':'セレモニー詳細',
+    'Describe what you’d like to celebrate':'お祝いしたい内容をお書きください','Celebration details':'お祝い詳細',
+    'What do you need help with?':'どのようなお手伝いが必要ですか？','Task type':'タスクの種類','Errand details (if applicable)':'お使いの詳細（該当する場合）','Errand details':'お使い詳細',
+    'Moving / accommodation help (if applicable)':'引っ越し・住まいのサポート（該当する場合）','Moving help':'引っ越しサポート',
+    'Instructions or restrictions for our specialist':'担当者への指示・ご要望','Instructions':'ご指示',
+    'Describe the projects / assistance you need':'必要なプロジェクト・サポート内容をお書きください','Assistance needed':'必要なサポート',
+    'Expected daily hours':'1日あたりの想定時間','Daily hours':'1日の時間',
+    'Describe the projects / daily tasks':'プロジェクト・日々のタスクをお書きください','Tasks':'タスク',
+    'Estimated hours (billed per contract hour)':'想定時間（契約時間単位で請求）','Estimated hours':'想定時間',
+    /* options */
+    'Fruits picnic':'フルーツピクニック','Vegan picnic':'ヴィーガンピクニック','Picnic with BBQ':'BBQピクニック',
+    'Nature (Parks & Gardens)':'自然（公園・庭園）','Water side':'水辺','Field':'芝生・野原','Home based':'ご自宅','Curated spot':'特別な場所',
+    'Small':'少なめ','Medium':'普通','Large':'多め','Combo':'コンボ',
+    'Direct Booking (pay event cost)':'直接予約（イベント費用のお支払い）','Consultation (¥20,000)':'コンサルテーション（¥20,000）','Consultation + Booking (¥20,000 + event cost)':'コンサル＋予約（¥20,000＋イベント費用）',
+    'Japanese':'和食','Chinese':'中華','African':'アフリカ料理','Italian':'イタリアン','Halal':'ハラル','Spicy':'スパイシー','Other':'その他',
+    'Alcoholic':'アルコール','Smoothies':'スムージー','Soft drinks':'ソフトドリンク','Water':'お水','Cocktails':'カクテル','Whisky':'ウイスキー',
+    'Music':'音楽','Transportation':'送迎','Photography':'写真撮影',
+    'Birthday':'誕生日','Achievement':'達成のお祝い','Burial (Celebration of life)':'お別れの会（人生のお祝い）','Wedding':'結婚式','Business':'ビジネス',
+    'Hall':'ホール','Family gathering':'家族の集まり',
+    'Romantic date':'ロマンチックなデート','Official':'公式','Picnic date':'ピクニックデート','Festival':'お祭り','Restaurant':'レストラン',
+    'Work dinner':'仕事のディナー','Family dinner':'家族のディナー',
+    'Special curated venue (reservation)':'特別な会場（予約制）','Outdoor (curated on request)':'屋外（ご要望に応じて）',
+    'Booking':'予約','Consultation':'コンサルテーション','Consultation (free)':'コンサルテーション（無料）',
+    'Errands':'お使い','Groceries':'買い物','Moving / Accommodation':'引っ越し・住まい','Child care':'育児','Academics (extra lessons)':'学習（追加レッスン）','Garage clean-out':'物置・ガレージの片付け',
+    'Grocery shopping':'食料品の買い物','Pick-up / drop-off':'送り迎え','Party bookings':'パーティーの手配','Art purchases':'アート購入',
+    'Plan the move':'引っ越しの計画','Find accommodation':'住まい探し','Move belongings':'荷物の運搬','Apartment setup / furnishing':'部屋のセットアップ・家具',
+    'Up to 5 hours/day (standard)':'1日5時間まで（標準）','More than 5 hours (special request)':'5時間以上（特別リクエスト）',
+    /* placeholders, note, messages */
+    'Select…':'選択してください…','Select all that apply…':'当てはまるものをすべて選択…',
+    'Tip: pick everything that applies. Anything you’re unsure about, just leave it and add a note on the next step — we’ll guide you during consultation.':'ヒント：当てはまるものをすべてお選びください。迷うものは空欄で構いません。次のステップでメモを添えていただければ、ご相談時にご案内します。',
+    'Please fill in your name, a valid email, phone, date of birth, nationality and address.':'お名前、有効なメールアドレス、電話番号、生年月日、国籍、ご住所をご入力ください。',
+    'Sorry, something went wrong sending your booking. Please try again, or email info@rirakkusujapan.com.':'申し訳ございません。送信中に問題が発生しました。もう一度お試しいただくか、info@rirakkusujapan.com までメールをお送りください。',
+    'Sending…':'送信中…',
+    /* input placeholders */
+    'e.g. 4':'例：4','e.g. 30':'例：30','e.g. 2':'例：2','e.g. 8':'例：8','e.g. 20':'例：20',
+    'e.g. vegan, no pork… (leave blank if none)':'例：ヴィーガン、豚肉なし…（なければ空欄で）',
+    'Tell us everything you have in mind…':'ご希望をすべてお書きください…',
+    'Anything we should know…':'お知らせいただくことがあればお書きください…',
+    'What would you like your assistant to handle?':'アシスタントに任せたいことをお書きください',
+    'What would you like handled remotely?':'リモートで任せたいことをお書きください'
+  };
+  function tr(s){ return (LANG==='ja' && DICT[s]!=null) ? DICT[s] : s; }
+  function translateStatic(){
+    function setT(sel,v,i){var e=document.querySelectorAll(sel);var x=(i==null)?e[0]:e[i];if(x)x.textContent=v;}
+    function setH(sel,v,i){var e=document.querySelectorAll(sel);var x=(i==null)?e[0]:e[i];if(x)x.innerHTML=v;}
+    setT('.topbar__back','← サイトに戻る');
+    setT('.eyebrow','時間を取り戻す');
+    setH('.title','サービスを<em>予約</em>');
+    setT('.sub','ご希望をお聞かせください — サービスを選び、オプションを選択。あとは私たちにお任せください。');
+    var lbls=document.querySelectorAll('.stepper__item .lbl'),lt=['サービス','種類','詳細','お客様情報','確認'];
+    [].forEach.call(lbls,function(x,i){if(lt[i])x.textContent=lt[i];});
+    setT('.step[data-step="0"] .step__head','どのようなご用件ですか？');
+    setT('.step[data-step="3"] .step__head','お客様の情報');
+    setT('.step[data-step="4"] .step__head','内容の確認と送信');
+    setT('.step[data-step="0"] .step__hint','ご希望のサービスの種類をお選びください。');
+    setT('.step[data-step="1"] .step__hint','ご予定に合うサービスをお選びください。');
+    setT('.step[data-step="2"] .step__hint','当てはまるものをすべて選択してください — より良いご提案につながります。');
+    setT('.step[data-step="3"] .step__hint','ご予約の確認と、その後のご連絡のために伺います。');
+    setT('.step[data-step="4"] .step__hint','送信前に内容をご確認ください。');
+    var bmap={'Continue →':'次へ →','Review →':'確認へ →','← Back':'← 戻る','Submit booking':'予約を送信','Back to home':'ホームに戻る'};
+    [].forEach.call(document.querySelectorAll('.btn'),function(b){var t=b.textContent.trim();if(bmap[t])b.textContent=bmap[t];});
+    var fmap={'Full name':'お名前','Email':'メールアドレス','Phone / WhatsApp':'電話 / WhatsApp','Date of birth':'生年月日','Nationality':'国籍','Residential address':'ご住所','Preferred date (optional)':'ご希望日（任意）','Budget range (optional)':'ご予算（任意）'};
+    [].forEach.call(document.querySelectorAll('.field label'),function(l){var req=l.querySelector('.req');var t=l.textContent.replace('*','').trim();if(t.indexOf('Anything else')===0){l.innerHTML='その他ご要望 —「ウィッシュ」（任意）';return;}if(fmap[t])l.innerHTML=fmap[t]+(req?' <span class="req">*</span>':'');});
+    setT('.privacy','🔒 必要な情報のみをお預かりし、100%の機密を厳守します。第三者へ共有することはありません。送信をもって、ご連絡を受けることに同意いただいたものとみなします。');
+    setH('.success h2','ありがとうございます<span id="successName"></span>。');
+    setT('.success p','ご予約のお申し込みを承りました。担当者より、詳細と次のステップについて直接ご連絡いたします。どうぞご安心ください — あとはお任せください。');
+    var phmap={p_name:'お名前（フルネーム）',p_email:'メールアドレス',p_phone:'電話番号',p_nat:'例：日本',p_addr:'番地・市区町村・都道府県 / 国',p_budget:'例：¥50,000',p_notes:'理想を叶えるために、何でもお書きください…'};
+    Object.keys(phmap).forEach(function(id){var e=document.getElementById(id);if(e)e.placeholder=phmap[id];});
+    document.documentElement.lang='ja';
+  }
+  function setupLang(){
+    [].forEach.call(document.querySelectorAll('.lang-btn'),function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang')===LANG);
+      b.addEventListener('click',function(){
+        var l=b.getAttribute('data-lang');
+        try{localStorage.setItem('rj_lang',l);}catch(e){}
+        location.reload();
+      });
+    });
+    if(LANG==='ja') translateStatic();
+  }
+
+  /* ---------- reusable option groups for events ---------- */
+  var EVENT_COMMON = [
+    {key:'Proceed',label:'How would you like to proceed?',type:'radio',req:true,
+      options:['Direct Booking (pay event cost)','Consultation (¥20,000)','Consultation + Booking (¥20,000 + event cost)']},
+    {key:'Cuisine (Chūshin)',label:'Cuisine preference',type:'checkbox',
+      options:['Japanese','Chinese','African','Italian','Halal','Spicy','Other']},
+    {key:'Drinks',label:'Drinks',type:'checkbox',
+      options:['Alcoholic','Smoothies','Soft drinks','Water','Cocktails','Whisky']},
+    {key:'Other services',label:'Other services needed',type:'checkbox',
+      options:['Music','Transportation','Photography','Other']},
+    {key:'Dietary / religious notes',label:'Any dietary or religious restrictions?',type:'text',placeholder:'e.g. vegan, no pork… (leave blank if none)'}
+  ];
+
+  /* ---------- full config ---------- */
+  var CONFIG = {
+    event:{
+      label:'Event Planning & Management',
+      desc:'Picnics, anniversaries, dates, dinners, ceremonies & celebrations — curated around you.',
+      services:{
+        picnic:{label:'Picnic',desc:'Fruits, vegan or BBQ picnics in nature, waterside, fields & curated spots.',groups:[
+          {key:'Picnic type',label:'Picnic type',type:'radio',req:true,options:['Fruits picnic','Vegan picnic','Picnic with BBQ']},
+          {key:'Venue / Spot',label:'Venue / spot',type:'radio',options:['Nature (Parks & Gardens)','Water side','Field','Home based','Curated spot']},
+          {key:'Number of guests',label:'Number of guests',type:'number',placeholder:'e.g. 4'},
+          {key:'Portion size',label:'Portion size',type:'radio',options:['Small','Medium','Large','Combo']}
+        ].concat(EVENT_COMMON)},
+        anniversary:{label:'Anniversary',desc:'Birthdays, achievements, weddings, business & celebrations of life.',groups:[
+          {key:'Occasion',label:'Occasion',type:'radio',req:true,options:['Birthday','Achievement','Burial (Celebration of life)','Wedding','Business','Other']},
+          {key:'Venue / Spot',label:'Venue',type:'radio',options:['Hall','Field','Family gathering','Other']},
+          {key:'Number of guests',label:'Number of guests',type:'number',placeholder:'e.g. 30'},
+          {key:'Portion size',label:'Portion size',type:'radio',options:['Small','Medium','Large','Combo']}
+        ].concat(EVENT_COMMON)},
+        dates:{label:'Dates',desc:'Romantic, official or special dates — picnics, festivals, halls & restaurants.',groups:[
+          {key:'Date type',label:'Date type',type:'radio',req:true,options:['Romantic date','Official','Other']},
+          {key:'Venue / Spot',label:'Venue',type:'radio',options:['Picnic date','Festival','Hall','Restaurant']},
+          {key:'Restaurant rank',label:'Preferred restaurant rank',type:'radio',options:['1★','2★','3★','4★']},
+          {key:'Number of guests',label:'Number of guests',type:'number',placeholder:'e.g. 2'}
+        ].concat(EVENT_COMMON)},
+        dinners:{label:'Dinners',desc:'Work, family & special dinners at curated venues, restaurants or outdoors.',groups:[
+          {key:'Dinner type',label:'Dinner type',type:'radio',req:true,options:['Work dinner','Family dinner','Other']},
+          {key:'Venue / Spot',label:'Venue',type:'radio',options:['Special curated venue (reservation)','Restaurant','Outdoor (curated on request)']},
+          {key:'Number of guests',label:'Number of guests',type:'number',placeholder:'e.g. 8'}
+        ].concat(EVENT_COMMON)},
+        ceremonies:{label:'Ceremonies',desc:'Tell us about your ceremony and we’ll curate it end to end.',groups:[
+          {key:'Ceremony details',label:'Describe the ceremony (type, venue, guests, requirements)',type:'textarea',req:true,placeholder:'Tell us everything you have in mind…'},
+          {key:'Proceed',label:'How would you like to proceed?',type:'radio',options:['Booking','Consultation']},
+          {key:'Cuisine (Chūshin)',label:'Cuisine preference',type:'checkbox',options:['Japanese','Chinese','African','Italian','Halal','Spicy','Other']},
+          {key:'Drinks',label:'Drinks',type:'checkbox',options:['Alcoholic','Smoothies','Soft drinks','Water','Cocktails','Whisky']}
+        ]},
+        celebrations:{label:'Celebrations / Others',desc:'Anything else worth celebrating — bring us your imagination.',groups:[
+          {key:'Celebration details',label:'Describe what you’d like to celebrate',type:'textarea',req:true,placeholder:'Tell us everything you have in mind…'},
+          {key:'Proceed',label:'How would you like to proceed?',type:'radio',options:['Booking','Consultation']},
+          {key:'Cuisine (Chūshin)',label:'Cuisine preference',type:'checkbox',options:['Japanese','Chinese','African','Italian','Halal','Spicy','Other']},
+          {key:'Drinks',label:'Drinks',type:'checkbox',options:['Alcoholic','Smoothies','Soft drinks','Water','Cocktails','Whisky']}
+        ]}
+      }
+    },
+    task:{
+      label:'Personal & Corporate Project Management',
+      desc:'Delegate time-consuming tasks, errands and projects to our dedicated team.',
+      services:{
+        personal:{label:'Personal Task',desc:'Errands, groceries, moving, child care, academics, clean-outs & more.',groups:[
+          {key:'Task type',label:'What do you need help with?',type:'checkbox',req:true,options:['Errands','Groceries','Moving / Accommodation','Child care','Academics (extra lessons)','Garage clean-out','Other']},
+          {key:'Errand details',label:'Errand details (if applicable)',type:'checkbox',options:['Grocery shopping','Pick-up / drop-off','Party bookings','Art purchases','Other']},
+          {key:'Moving help',label:'Moving / accommodation help (if applicable)',type:'checkbox',options:['Plan the move','Find accommodation','Move belongings','Apartment setup / furnishing']},
+          {key:'Proceed',label:'How would you like to proceed?',type:'radio',req:true,options:['Booking','Consultation (free)']},
+          {key:'Instructions',label:'Instructions or restrictions for our specialist',type:'textarea',placeholder:'Anything we should know…'}
+        ]},
+        pa:{label:'Personal Assistant',desc:'A dedicated assistant to work with you on tasks and daily life.',groups:[
+          {key:'Assistance needed',label:'Describe the projects / assistance you need',type:'textarea',req:true,placeholder:'What would you like your assistant to handle?'},
+          {key:'Daily hours',label:'Expected daily hours',type:'radio',options:['Up to 5 hours/day (standard)','More than 5 hours (special request)']},
+          {key:'Proceed',label:'How would you like to proceed?',type:'radio',req:true,options:['Booking','Consultation']}
+        ]},
+        va:{label:'Virtual Assistant',desc:'A remote assistant to handle projects and daily tasks, billed per hour.',groups:[
+          {key:'Tasks',label:'Describe the projects / daily tasks',type:'textarea',req:true,placeholder:'What would you like handled remotely?'},
+          {key:'Estimated hours',label:'Estimated hours (billed per contract hour)',type:'number',placeholder:'e.g. 20'},
+          {key:'Proceed',label:'How would you like to proceed?',type:'radio',req:true,options:['Booking','Consultation']}
+        ]}
+      }
+    }
+  };
+
+  /* ---------- state ---------- */
+  var state={pillar:null,service:null,answers:{}};
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var cur=0;
+
+  /* ---------- helpers ---------- */
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+  function showStep(i){
+    cur=i;
+    steps.forEach(function(s,idx){s.classList.toggle('active',idx===i);});
+    document.querySelectorAll('.stepper__item').forEach(function(it){
+      var n=+it.getAttribute('data-s');
+      it.classList.toggle('active',n===i);
+      it.classList.toggle('done',n<i);
+    });
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  /* ---------- step 0: pillars ---------- */
+  var pillarCards=document.getElementById('pillarCards');
+  Object.keys(CONFIG).forEach(function(pk){
+    var p=CONFIG[pk];
+    var c=el('div','card','<span class="tick">✓</span><h3>'+tr(p.label)+'</h3><p>'+tr(p.desc)+'</p>');
+    c.addEventListener('click',function(){
+      state.pillar=pk;state.service=null;state.answers={};
+      [].forEach.call(pillarCards.children,function(x){x.classList.remove('selected');});
+      c.classList.add('selected');
+      document.getElementById('next0').disabled=false;
+    });
+    pillarCards.appendChild(c);
+  });
+
+  /* ---------- step 1: services ---------- */
+  function renderServices(){
+    var box=document.getElementById('serviceCards');box.innerHTML='';
+    document.getElementById('svcHead').textContent = (LANG==='ja') ? 'サービスを選択' : ('Choose a '+(state.pillar==='event'?'service':'task'));
+    var svcs=CONFIG[state.pillar].services;
+    document.getElementById('next1').disabled=true;
+    Object.keys(svcs).forEach(function(sk){
+      var s=svcs[sk];
+      var c=el('div','card','<span class="tick">✓</span><h3>'+tr(s.label)+'</h3><p>'+tr(s.desc)+'</p>');
+      c.setAttribute('data-svc',sk);
+      c.addEventListener('click',function(){
+        state.service=sk;state.answers={};
+        [].forEach.call(box.children,function(x){x.classList.remove('selected');});
+        c.classList.add('selected');
+        document.getElementById('next1').disabled=false;
+      });
+      box.appendChild(c);
+    });
+  }
+
+  /* ---------- step 2: options ---------- */
+  function renderOptions(){
+    var area=document.getElementById('optionsArea');area.innerHTML='';
+    var svc=CONFIG[state.pillar].services[state.service];
+    document.getElementById('optHead').textContent = (LANG==='ja') ? (tr(svc.label)+' — ご希望') : (svc.label+' — your preferences');
+    svc.groups.forEach(function(g){
+      var wrap=el('div','group');
+      wrap.appendChild(el('label','group__label',tr(g.label)+(g.req?' <span class="req">*</span>':'')));
+      if(g.type==='radio'||g.type==='checkbox'){
+        var multi=g.type==='checkbox';
+        var dd=el('div','dd');
+        dd.setAttribute('data-multi',multi?'1':'0');
+        dd._values=[];
+        var ph=multi?tr('Select all that apply…'):tr('Select…');
+        var btn=el('button','dd__btn');btn.type='button';
+        btn.setAttribute('aria-haspopup','listbox');btn.setAttribute('aria-expanded','false');
+        btn.innerHTML='<span class="dd__val dd__val--ph">'+ph+'</span><span class="dd__caret">▾</span>';
+        var panel=el('ul','dd__panel');panel.setAttribute('role','listbox');
+        if(multi)panel.setAttribute('aria-multiselectable','true');
+        g.options.forEach(function(o){
+          var li=el('li','dd__item','<span class="dd__check">✓</span><span>'+tr(o)+'</span>');
+          li.setAttribute('role','option');li.setAttribute('data-value',o);
+          panel.appendChild(li);
+        });
+        dd.appendChild(btn);dd.appendChild(panel);
+        wrap.appendChild(dd);
+      } else if(g.type==='textarea'){
+        var f=el('div','field');f.innerHTML='<textarea name="grp_'+g.key+'" placeholder="'+tr(g.placeholder||'')+'"></textarea>';
+        wrap.appendChild(f);
+      } else {
+        var ft=el('div','field');ft.innerHTML='<input type="'+(g.type||'text')+'" name="grp_'+g.key+'" placeholder="'+tr(g.placeholder||'')+'">';
+        wrap.appendChild(ft);
+      }
+      wrap.setAttribute('data-key',g.key);
+      wrap.setAttribute('data-req',g.req?'1':'');
+      area.appendChild(wrap);
+    });
+    var note=el('div','note',tr('Tip: pick everything that applies. Anything you’re unsure about, just leave it and add a note on the next step — we’ll guide you during consultation.'));
+    area.appendChild(note);
+  }
+
+  function collectOptions(){
+    var ans={};
+    document.querySelectorAll('#optionsArea .group').forEach(function(grp){
+      var key=grp.getAttribute('data-key');
+      var dd=grp.querySelector('.dd');
+      if(dd){
+        if(dd._values && dd._values.length) ans[key]=dd._values.join(', ');
+      } else {
+        var txt=grp.querySelector('input[type=text],input[type=number],textarea');
+        if(txt && txt.value.trim()) ans[key]=txt.value.trim();
+      }
+    });
+    state.answers=ans;
+  }
+
+  /* ---------- dropdown behaviour (event delegation) ---------- */
+  function closeAllDD(except){
+    document.querySelectorAll('.dd.open').forEach(function(d){
+      if(d!==except){ d.classList.remove('open'); d.querySelector('.dd__btn').setAttribute('aria-expanded','false'); }
+    });
+  }
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest && e.target.closest('.dd__btn');
+    var item=e.target.closest && e.target.closest('.dd__item');
+    if(btn){
+      var dd=btn.closest('.dd');
+      var willOpen=!dd.classList.contains('open');
+      closeAllDD(dd);
+      dd.classList.toggle('open',willOpen);
+      btn.setAttribute('aria-expanded',willOpen?'true':'false');
+      return;
+    }
+    if(item){
+      var dd2=item.closest('.dd');
+      var multi=dd2.getAttribute('data-multi')==='1';
+      var val=item.getAttribute('data-value');
+      if(multi){
+        var i=dd2._values.indexOf(val);
+        if(i>=0){ dd2._values.splice(i,1); item.classList.remove('selected'); }
+        else { dd2._values.push(val); item.classList.add('selected'); }
+      } else {
+        dd2._values=[val];
+        dd2.querySelectorAll('.dd__item').forEach(function(x){x.classList.remove('selected');});
+        item.classList.add('selected');
+        dd2.classList.remove('open');
+        dd2.querySelector('.dd__btn').setAttribute('aria-expanded','false');
+      }
+      var lab=dd2.querySelector('.dd__val');
+      if(dd2._values.length===0){ lab.textContent=multi?tr('Select all that apply…'):tr('Select…'); lab.classList.add('dd__val--ph'); }
+      else { lab.textContent=dd2._values.map(tr).join(LANG==='ja'?'、':', '); lab.classList.remove('dd__val--ph'); }
+      return;
+    }
+    if(!(e.target.closest && e.target.closest('.dd'))) closeAllDD(null);
+  });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeAllDD(null); });
+
+  /* ---------- step 4: review ---------- */
+  function buildReview(){
+    var svc=CONFIG[state.pillar].services[state.service];
+    var box=document.getElementById('reviewBox');
+    var rows='<h4>'+tr(CONFIG[state.pillar].label)+' — '+tr(svc.label)+'</h4>';
+    Object.keys(state.answers).forEach(function(k){
+      var disp = (LANG==='ja') ? state.answers[k].split(', ').map(tr).join('、') : state.answers[k];
+      rows+='<div class="row"><div class="k">'+tr(k)+'</div><div class="v">'+disp+'</div></div>';
+    });
+    var pdLabel={'Name':'お名前','Email':'メール','Phone':'電話','Date of birth':'生年月日','Nationality':'国籍','Address':'ご住所','Preferred date':'ご希望日','Budget':'ご予算','Notes':'ご要望'};
+    var pd=[['Name','p_name'],['Email','p_email'],['Phone','p_phone'],['Date of birth','p_dob'],['Nationality','p_nat'],['Address','p_addr'],['Preferred date','p_pref'],['Budget','p_budget'],['Notes','p_notes']];
+    pd.forEach(function(p){var v=document.getElementById(p[1]).value.trim();if(v){var kk=(LANG==='ja'&&pdLabel[p[0]])?pdLabel[p[0]]:p[0];rows+='<div class="row"><div class="k">'+kk+'</div><div class="v">'+v+'</div></div>';}});
+    box.innerHTML=rows;
+
+    /* fill hidden fields for Formspree */
+    document.getElementById('f_service').value=CONFIG[state.pillar].label+' → '+svc.label;
+    var details=[];
+    Object.keys(state.answers).forEach(function(k){details.push(k+': '+state.answers[k]);});
+    document.getElementById('f_details').value=details.join('\n');
+    document.getElementById('subjectField').value='New booking: '+svc.label+' — '+(document.getElementById('p_name').value.trim()||'Rirakkusu Japan');
+  }
+
+  /* ---------- validation ---------- */
+  function validateInfo(){
+    var name=document.getElementById('p_name').value.trim();
+    var email=document.getElementById('p_email').value.trim();
+    var phone=document.getElementById('p_phone').value.trim();
+    var dob=document.getElementById('p_dob').value.trim();
+    var nat=document.getElementById('p_nat').value.trim();
+    var addr=document.getElementById('p_addr').value.trim();
+    var emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!name||!emailOk||!phone||!dob||!nat||!addr){
+      document.getElementById('err3').textContent=tr('Please fill in your name, a valid email, phone, date of birth, nationality and address.');
+      return false;
+    }
+    document.getElementById('err3').textContent='';
+    return true;
+  }
+
+  /* ---------- navigation ---------- */
+  document.querySelectorAll('[data-next]').forEach(function(b){
+    b.addEventListener('click',function(){
+      if(cur===0){ if(!state.pillar)return; renderServices(); showStep(1); }
+      else if(cur===1){ if(!state.service)return; renderOptions(); showStep(2); }
+      else if(cur===2){ collectOptions(); showStep(3); }
+      else if(cur===3){ if(!validateInfo())return; buildReview(); showStep(4); }
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(function(b){
+    b.addEventListener('click',function(){ showStep(Math.max(0,cur-1)); });
+  });
+
+  /* ---------- submit ---------- */
+  var form=document.getElementById('bookingForm');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!validateInfo()){ showStep(3); return; }
+    buildReview();
+    var btn=document.getElementById('submitBtn');
+    var btnLabel=btn.textContent;
+    btn.disabled=true;btn.textContent=tr('Sending…');
+    fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
+      .then(function(r){
+        if(!r.ok)throw new Error('bad');
+        document.getElementById('bookingForm').style.display='none';
+        document.getElementById('stepper').style.display='none';
+        var nm=document.getElementById('p_name').value.trim();
+        document.getElementById('successName').textContent=nm?((LANG==='ja')?('、'+nm+' 様'):(', '+nm)):'';
+        document.getElementById('successBox').classList.add('show');
+        window.scrollTo({top:0,behavior:'smooth'});
+      })
+      .catch(function(){
+        document.getElementById('err4').textContent=tr('Sorry, something went wrong sending your booking. Please try again, or email info@rirakkusujapan.com.');
+        btn.disabled=false;btn.textContent=btnLabel;
+      });
+  });
+
+  /* ---------- language init ---------- */
+  setupLang();
+
+  /* ---------- optional deep-link: book.html?service=picnic ---------- */
+  (function(){
+    var q=new URLSearchParams(location.search);
+    var s=q.get('service');
+    if(!s)return;
+    var pk=null;Object.keys(CONFIG).forEach(function(p){if(CONFIG[p].services[s])pk=p;});
+    if(!pk)return;
+    state.pillar=pk;state.service=s;
+    renderServices();
+    showStep(1);
+    [].forEach.call(document.getElementById('serviceCards').children,function(c){
+      if(c.getAttribute('data-svc')===s){c.click();}
+    });
+  })();
+})();
+</script>
+</body>
+</html>
